@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 18 17:10:16 CST 2018
+maven-toolchain-1.0.jar>central=
+maven-toolchain-1.0.pom>central=
+maven-toolchain-1.0.jar>alimaven=
+maven-toolchain-1.0.pom>alimaven=

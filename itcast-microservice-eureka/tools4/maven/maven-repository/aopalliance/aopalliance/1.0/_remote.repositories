@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 18 17:09:52 CST 2018
+aopalliance-1.0.pom>central=
+aopalliance-1.0.jar>alimaven=
+aopalliance-1.0.jar>central=
+aopalliance-1.0.pom>alimaven=

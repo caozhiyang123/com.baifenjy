@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 18 17:11:36 CST 2018
+plexus-classworlds-2.5.1.jar>central=
+plexus-classworlds-2.5.1.pom>alimaven=
+plexus-classworlds-2.5.1.pom>central=

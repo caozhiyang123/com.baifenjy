@@ -1,0 +1,49 @@
+server:
+  port: ${port} #服务端口
+
+spring:
+  application:
+    name: itcast-microservice-config
+
+# 指定SpringCloud Config配置
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/caozhiyang123/microservice03.git
+          searchPaths: data
+
+# 指定登陆私有仓库账户
+# spring.cloud.config.server.git.username=
+# 指定登陆私有仓库密码
+# spring.cloud.config.server.git.password=
+
+
+###########################################################################################
+eureka:
+  client:
+    registerWithEureka: true #是否将自己注册到eureka服务中，本身就是所有无需注册
+    fetchRegistry: true #是否从eureka服务中获取信息
+    serviceUrl: #Eureka客户端与Eureka服务端交互地址
+      defaultZone: http://oriki:1234@127.0.0.1:6868/eureka/,http://oriki:1234@127.0.0.1:6869/eureka/
+      # http://127.0.0.1:6868/eureka/ ,http://127.0.0.1:6869/eureka/
+    #eurekaServerConnectionTimeoutSeconds: 60
+    #eurekaServerReadTimeoutSeconds: 60
+  instance:
+    prefer-ip-address: true #将自己的ip注册到Eureka服务中
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port} #指定实例Id
+    #lease-expiration-duration-in-seconds: 30  #续约更新时间间隔(默认30秒)
+    #lease-renewal-interval-in-seconds: 90 #续约到期时间（默认90秒）
+    #leaseRenewalIntervalInSecondes: 90 #心跳时间
+#  server:
+#    enable-self-preservation: false #禁用自我保护模式
+#    eviction-interval-timer-in-ms: 60000 #清理间隔（单位毫秒，默认是60*1000）
+
+###########################################################################################
+logging:
+  level:
+    root: info
+# org.springframework.web:DEBUG
+  file: /log/log/order.log
+

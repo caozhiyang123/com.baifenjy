@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 18 17:10:24 CST 2018
+maven-archiver-2.6.jar>central=
+maven-archiver-2.6.pom>central=
+maven-archiver-2.6.jar>alimaven=
+maven-archiver-2.6.pom>alimaven=

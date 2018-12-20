@@ -1,0 +1,21 @@
+# Ignore files
+.project
+.classpath
+.settings/
+*.iml
+*.ipr
+*.iws
+
+# Ignore folders
+target/
+bin/
+/config
+/.idea
+/out
+
+# Do not ignore them
+!.idea/copyright
+!.idea/inspectionProfiles
+!.idea/scopes
+!.idea/codeStyleSettings.xml
+!.idea/vcs.xml

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>cn.itcast.microservice.eureka</groupId>
+  <artifactId>itcast-microservice-eureka</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20181218091025</lastUpdated>
+  </versioning>
+</metadata>

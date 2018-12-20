@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 18 17:09:52 CST 2018
+rxjava-1.1.10.jar>central=
+rxjava-1.1.10.jar>alimaven=
+rxjava-1.1.10.pom>alimaven=
+rxjava-1.1.10.pom>central=

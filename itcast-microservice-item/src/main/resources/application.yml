@@ -1,0 +1,68 @@
+server:
+  port: ${port} #服务端口
+
+
+spring:
+  application:
+    name: itcast-microservice-item #指定服务名
+# = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
+
+# mysql配置
+#  datasource:
+#      driver-class-name: com.mysql.jdbc.Driver
+#      type: com.jolbox.bonecp.BoneCPDataSource # com.alibaba.druid.pool.DruidDataSource
+#      url: jdbc:mysql://127.0.0.1:3306/gms_analytics_db?rewriteBatchedStatements=true
+#      username: root
+#      password: MyNewPass
+#
+#  jpa:
+#    hibernate:
+#      #ddl-auto: create #ddl-auto:设为create表示每次都重写建表
+#      ddl-auto: update # ddl-auto:设为update表示每次都不会重写建表
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+#    show-sql: true
+#    database: MYSQL
+#    properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+
+###########################################################################################
+###########################################################################################
+
+#spring集成Mybatis环境
+#pojo别名扫描包
+# mybatis:
+ # type-aliases-package:cn.itcast.microservice.user.pojo
+
+###########################################################################################
+###########################################################################################
+
+eureka:
+  client:
+    registerWithEureka: true #是否将自己注册到eureka服务中，本身就是所有无需注册
+    fetchRegistry: true #是否从eureka服务中获取信息
+    serviceUrl: #Eureka客户端与Eureka服务端交互地址
+      defaultZone: http://oriki:1234@127.0.0.1:6868/eureka/,http://oriki:1234@127.0.0.1:6869/eureka/
+      # http://127.0.0.1:6868/eureka/ ,http://127.0.0.1:6869/eureka/
+      #http://oriki:1234@localhost:6869/eureka/
+    #eurekaServerConnectionTimeoutSeconds: 60
+    #eurekaServerReadTimeoutSeconds: 60
+  instance:
+    prefer-ip-address: true #将自己的ip注册到Eureka服务中
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port} #指定实例Id
+    #lease-expiration-duration-in-seconds: 30  #续约更新时间间隔(默认30秒)
+    #lease-renewal-interval-in-seconds: 90 #续约到期时间（默认90秒）
+    #leaseRenewalIntervalInSecondes: 90 #心跳时间
+#  server:
+#    enable-self-preservation: false #禁用自我保护模式
+#    eviction-interval-timer-in-ms: 60000 #清理间隔（单位毫秒，默认是60*1000）
+
+
+#security:
+#   basic:
+#     enabled true #开启基于HTTP basic 认证
+###########################################################################################
+###########################################################################################
+logging:
+  level:
+    root: info
+  file: /log/log/item.log
