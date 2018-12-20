@@ -13,7 +13,8 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "user",uniqueConstraints={@UniqueConstraint(name="name_pass",columnNames={"username","password"})}) //映射的表名称
 public class User implements Serializable{
-    
+    private static final long serialVersionUID = 1L;
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")

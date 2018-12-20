@@ -16,7 +16,7 @@ import cn.itcast.microservice.service.UserService;
 public class ProviderUserMysqlController {
     
     @Autowired
-    private UserService userServiceImpl;
+    private UserService userService;
     
     
     /**
@@ -28,7 +28,7 @@ public class ProviderUserMysqlController {
      */
     @GetMapping("/simple/{id}")
     public User findUserById(@PathVariable Long id) {
-        return this.userServiceImpl.findUserById(id);
+        return this.userService.findUserById(id);
     }
 
     /**
@@ -40,7 +40,7 @@ public class ProviderUserMysqlController {
      */
     @GetMapping("/simple/list")
     public List<User> findUserList() {
-        return this.userServiceImpl.findUserList();
+        return this.userService.findUserList();
     }
     
     /**
@@ -52,7 +52,7 @@ public class ProviderUserMysqlController {
      */
     @GetMapping("/simple/login")
     public User findUserByNameAndPass(@RequestParam(value = "username",required = true) String username,@RequestParam(value = "password",required = true) String password){
-        return this.userServiceImpl.findUserByNameAndPass(username, password);
+        return this.userService.findUserByNameAndPass(username, password);
     }
 
     /**
@@ -69,7 +69,7 @@ public class ProviderUserMysqlController {
         user.setPassword(password);
         user.setAge(age);
         user.setBalance(balance);
-        this.userServiceImpl.save(user);
+        this.userService.save(user);
     }
     
 }

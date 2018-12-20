@@ -33,7 +33,7 @@ spring:
     hibernate:
 #      ddl-auto: create #ddl-auto:设为create表示每次都重写建表
       ddl-auto: update # ddl-auto:设为update表示每次都不会重写建表
-#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy #默认样式 # org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl 取消自动将驼峰命名转为下划线形式   
     show-sql: true
     database: MYSQL
     databasePlatform: "org.hibernate.dialect.MySQL5InnoDBDialect"
