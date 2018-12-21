@@ -2,7 +2,7 @@ package cn.itcast.microservice.order.domain;
 import java.util.Date;
 import java.util.List;
 
-public class Order {
+public class OrderVO {
 
 private String orderId;
 
@@ -14,11 +14,11 @@ private Date updateDate;
 
 private List<OrderDetail> orderDetails;
 
-public Order() {
+public OrderVO() {
 
 }
 
-public Order(String orderId, Long userId, Date createDate, Date updateDate) {
+public OrderVO(String orderId, Long userId, Date createDate, Date updateDate) {
 this.orderId = orderId;
 this.userId = userId;
 this.createDate = createDate;
@@ -67,7 +67,7 @@ this.orderDetails = orderDetails;
 
 @Override
 public String toString() {
-return "Order [orderId=" + orderId + ", userId=" + userId
+return "OrderVO [orderId=" + orderId + ", userId=" + userId
 + ", createDate=" + createDate + ", updateDate=" + updateDate
 + "]";
 }

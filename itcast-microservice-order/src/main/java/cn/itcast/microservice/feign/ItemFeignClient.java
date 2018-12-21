@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Created by czy on 2018-03-31.
+ * 申明这是一个Feign客户端，并且指明服务id
  */
-// 申明这是一个Feign客户端，并且指明服务id
 @FeignClient(value = "itcast-microservice-item")
 public interface ItemFeignClient {
 
     @RequestMapping(value = "/item/{id}",method = RequestMethod.GET)
-    public Item queryItemById(@PathVariable("id") Long id);
+    public Item queryItemById(@PathVariable("id") long id);
+
 }
