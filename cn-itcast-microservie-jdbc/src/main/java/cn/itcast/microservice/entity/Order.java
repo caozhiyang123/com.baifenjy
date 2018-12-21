@@ -14,7 +14,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import cn.itcast.microservice.config.NumberDesensitization;
 
 @Entity
-@Table(name = "order") //映射的表名称
+@Table(name = "order_edu") //映射的表名称
 public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -23,23 +23,23 @@ public class Order implements Serializable {
     @Column(name = "id")
     private long id;
     
-    @Column(unique=true,name="name",columnDefinition="varchar(100) not null")
+    @Column(unique=true,name="order_id",columnDefinition="varchar(5) not null")
     private String orderId;
     
     @Column(unique=false,name="student_name",columnDefinition="varchar(10)")
-    private String StudentName;
+    private String studentName;
     
-    @Column(unique=false,name="student-age",columnDefinition="tinyint(3)")
-    private int StudentAge;
+    @Column(unique=false,name="student_age",columnDefinition="tinyint(3)")
+    private int studentAge;
     
     @Column(unique=false,name="student_sex",columnDefinition="tinyint(2)")
-    private int StudentSex;
+    private int studentSex;
     
     @Column(unique=false,name="student_grade",columnDefinition="varchar(10)")
-    private String StudentGrade;
+    private String studentGrade;
     
-    @Column(unique=false,name="student——subject",columnDefinition="varchar(20)")
-    private String StudentSubject;
+    @Column(unique=false,name="student_subject",columnDefinition="varchar(20)")
+    private String studentSubject;
     
     @Column(unique=false,name="address",columnDefinition="varchar(30)")
     private String address;
@@ -53,16 +53,13 @@ public class Order implements Serializable {
     @Column(unique=false,name="parents_name",columnDefinition="varchar(10)")
     private String parentsName;
     
-    @Column(unique=false,name="phone_num",columnDefinition="bigint(11)")
-    private long phoneNum;
-
-    @Column(unique=false,name="phone",columnDefinition="bigint(11)")
-    private long phone;
+    @Column(unique=false,name="phone_num",columnDefinition="varchar(11)")
+    private String phoneNum;
     
-    @Column(unique=false,name="qqNum",columnDefinition="bigint(20)")
-    private long qqNum;
+    @Column(unique=false,name="qq_num",columnDefinition="varchar(20)")
+    private String qqNum;
     
-    @Column(unique=false,name="weChat_num",columnDefinition="varchar(100)")
+    @Column(unique=false,name="we_chat_num",columnDefinition="varchar(100)")
     private String weChatNum;
     
     @Column(unique=false,name="message_resource",columnDefinition="varchar(200)")
@@ -75,29 +72,27 @@ public class Order implements Serializable {
     {
         super();
     }
-    public Order(long id, String orderId,String studentName, int studentAge, int studentSex, String studentGrade,
+    public Order(String orderId,String studentName, int studentAge, int studentSex, String studentGrade,
             String studentSubject, String address, String otherImportants, String cost, String parentsName,
-            long phoneNum,long phone, long qqNum, String weChatNum, String messageResource,String createAt) {
-        this.id = id;
+            String phoneNum, String qqNum, String weChatNum, String messageResource,String createAt) {
         this.orderId = orderId;
-        StudentName = studentName;
-        StudentAge = studentAge;
-        StudentSex = studentSex;
-        StudentGrade = studentGrade;
-        StudentSubject = studentSubject;
+        this.studentName = studentName;
+        this.studentAge = studentAge;
+        this.studentSex = studentSex;
+        this.studentGrade = studentGrade;
+        this.studentSubject = studentSubject;
         this.address = address;
         this.otherImportants = otherImportants;
         this.cost = cost;
         this.parentsName = parentsName;
         this.phoneNum = phoneNum;
-        this.phone = phone;
         this.qqNum = qqNum;
         this.weChatNum = weChatNum;
         this.messageResource = messageResource;
         this.createAt = createAt;
     }
     
-    @JSONField(serialize = false)
+    @JSONField(serialize = true)
     public long getId() {
         return id;
     }
@@ -111,34 +106,34 @@ public class Order implements Serializable {
         this.orderId = orderId;
     }
     public String getStudentName() {
-        return StudentName;
+        return studentName;
     }
     public void setStudentName(String studentName) {
-        StudentName = studentName;
+        this.studentName = studentName;
     }
     public int getStudentAge() {
-        return StudentAge;
+        return studentAge;
     }
     public void setStudentAge(int studentAge) {
-        StudentAge = studentAge;
+        this.studentAge = studentAge;
     }
     public int getStudentSex() {
-        return StudentSex;
+        return studentSex;
     }
     public void setStudentSex(int studentSex) {
-        StudentSex = studentSex;
+        this.studentSex = studentSex;
     }
     public String getStudentGrade() {
-        return StudentGrade;
+        return studentGrade;
     }
     public void setStudentGrade(String studentGrade) {
-        StudentGrade = studentGrade;
+        this.studentGrade = studentGrade;
     }
     public String getStudentSubject() {
-        return StudentSubject;
+        return studentSubject;
     }
     public void setStudentSubject(String studentSubject) {
-        StudentSubject = studentSubject;
+        this.studentSubject = studentSubject;
     }
     public String getAddress() {
         return address;
@@ -164,26 +159,19 @@ public class Order implements Serializable {
     public void setParentsName(String parentsName) {
         this.parentsName = parentsName;
     }
-    public long getPhoneNum() {
+    
+    @NumberDesensitization
+    public String getPhoneNum() {
         return phoneNum;
     }
-    public void setPhoneNum(long phoneNum) {
+    public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
     
-    @NumberDesensitization
-    public long getPhone()
-    {
-        return phone;
-    }
-    public void setPhone(long phone)
-    {
-        this.phone = phone;
-    }
-    public long getQqNum() {
+    public String getQqNum() {
         return qqNum;
     }
-    public void setQqNum(long qqNum) {
+    public void setQqNum(String qqNum) {
         this.qqNum = qqNum;
     }
     public String getWeChatNum() {
@@ -199,7 +187,7 @@ public class Order implements Serializable {
         this.messageResource = messageResource;
     }
     
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+//    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     public String getCreateAt()
     {
         return createAt;

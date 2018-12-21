@@ -10,5 +10,9 @@ public interface OrderService
     Page<Order> pageQuery(int pageNum , int pageSize,Order order);
 
     Order queryByOrderId(String orderId);
+
+    void save(String orderId, String studentName, int studentAge, int studentSex, String studentGrade,
+            String studentSubject, String address, String otherImportants, String cost, String parentsName,
+            String phoneNum, String qqNum, String weChatNum, String messageResource);
     
 }

@@ -11,8 +11,12 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
+import cn.itcast.microservice.config.NumberDesensitization;
+
 @Entity
-@Table(name = "teacher",uniqueConstraints={@UniqueConstraint(name="phoneNum",columnNames={"phoneNum"})})
+@Table(name = "teacher_tb",uniqueConstraints={@UniqueConstraint(name="name_phoneNum",columnNames={"name","phone_num"})})
 public class Teacher implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -30,16 +34,16 @@ public class Teacher implements Serializable{
     @Column(unique=false,name="sex",columnDefinition="tinyint(2)")
     private int sex;
     
-    @Column(unique=true,name="email",columnDefinition="varchar(100)")
+    @Column(unique=false,name="email",columnDefinition="varchar(100)")
     private String email;
     
-    @Column(unique=true,name="phoneNum",columnDefinition="bigint(11)")
-    private long phoneNum;
+    @Column(unique=true,name="phone_num",columnDefinition="varchar(11)")
+    private String phoneNum;
     
-    @Column(unique=true,name="qqNum",columnDefinition="bigint(20)")
-    private long qqNum;
+    @Column(unique=false,name="qq_num",columnDefinition="varchar(20)")
+    private String qqNum;
     
-    @Column(unique=true,name="weChatNum",columnDefinition="varchar(100)")
+    @Column(unique=false,name="weChat_num",columnDefinition="varchar(100)")
     private String weChatNum;
     
     @Column(unique=false,name="address",columnDefinition="varchar(200)")
@@ -54,31 +58,34 @@ public class Teacher implements Serializable{
     @Column(unique=false,name="profession",columnDefinition="varchar(100)")
     private String profession;
     
-    @Column(unique=false,name="otherImports",columnDefinition="varchar(200)")
+    @Column(unique=false,name="other_imports",columnDefinition="varchar(200)")
     private String otherImports;
     
     @Column(unique=false,name="certification",columnDefinition="varchar(200)")
     private String certification;
     
-    @Column(unique=false,name="canTeacherGrade",columnDefinition="varchar(200)")
+    @Column(unique=false,name="can_teacherGrade",columnDefinition="varchar(200)")
     private String canTeacherGrade;
     
-    @Column(unique=false,name="canTeacherSubject",columnDefinition="varchar(200)")
+    @Column(unique=false,name="can_teacherSubject",columnDefinition="varchar(200)")
     private String canTeacherSubject;
     
-    @Column(unique=false,name="canTeacherArea",columnDefinition="varchar(200)")
+    @Column(unique=false,name="can_teacherArea",columnDefinition="varchar(200)")
     private String canTeacherArea;
     
-    @Column(unique=false,name="teachExperience",columnDefinition="varchar(200)")
+    @Column(unique=false,name="teach_experience",columnDefinition="varchar(200)")
     private String teachExperience;
+    
+    @Column(unique=false,name="create_at",columnDefinition="varchar(50) not null")
+    private String createAt;
     
     public Teacher() {
         super();
     }
-    public Teacher( String name, int age, int sex, String email, long phoneNum, long qqNum,
+    public Teacher( String name, int age, int sex, String email, String phoneNum, String qqNum,
             String weChatNum, String address, String idCard, String college, String profession,
             String otherImports, String certification, String canTeacherGrade, String canTeacherSubject,
-            String canTeacherArea, String teachExperience) {
+            String canTeacherArea, String teachExperience,String createAt) {
         this.name = name;
         this.age = age;
         this.sex = sex;
@@ -96,7 +103,10 @@ public class Teacher implements Serializable{
         this.canTeacherSubject = canTeacherSubject;
         this.canTeacherArea = canTeacherArea;
         this.teachExperience = teachExperience;
+        this.createAt = createAt;
     }
+    
+    @JSONField(serialize = true)
     public long getId() {
         return id;
     }
@@ -127,16 +137,18 @@ public class Teacher implements Serializable{
     public void setEmail(String email) {
         this.email = email;
     }
-    public long getPhoneNum() {
+    
+    @NumberDesensitization
+    public String getPhoneNum() {
         return phoneNum;
     }
-    public void setPhoneNum(long phoneNum) {
+    public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
-    public long getQqNum() {
+    public String getQqNum() {
         return qqNum;
     }
-    public void setQqNum(long qqNum) {
+    public void setQqNum(String qqNum) {
         this.qqNum = qqNum;
     }
     public String getWeChatNum() {
@@ -205,4 +217,16 @@ public class Teacher implements Serializable{
     public void setTeachExperience(String teachExperience) {
         this.teachExperience = teachExperience;
     }
+    
+//    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    public String getCreateAt()
+    {
+        return createAt;
+    }
+    public void setCreateAt(String createAt)
+    {
+        this.createAt = createAt;
+    }
+    
+    
 }

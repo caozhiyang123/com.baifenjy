@@ -1,17 +1,22 @@
 package cn.itcast.microservice.service;
 
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import cn.itcast.microservice.entity.Order;
 import cn.itcast.microservice.repository.OrderRepository;
+import cn.itcast.microservice.utils.ThreadLocalSimple;
 
+@Transactional(readOnly=true)
 @Service
 public class OrderServiceImpl implements OrderService
 {
@@ -49,10 +54,18 @@ public class OrderServiceImpl implements OrderService
 
     @Override
     public Order queryByOrderId(@PathVariable String orderId){
-        Order order = new Order();
-        order.setOrderId(orderId);
-        Example<Order> orderExample = Example.of(order);
-       return  this.orderRepository.findOne(orderExample);
+       return  this.orderRepository.findByOrderId(orderId);
+    }
+
+    @Transactional(readOnly=false)
+    @Override
+    public void save(String orderId, String studentName, int studentAge, int studentSex, String studentGrade,
+            String studentSubject, String address, String otherImportants, String cost, String parentsName,
+            String phoneNum, String qqNum, String weChatNum, String messageResource)
+    {
+        Order order = new Order(orderId,studentName,studentAge,studentSex,studentGrade,studentSubject,address,otherImportants
+                ,cost,parentsName,phoneNum,qqNum,weChatNum,messageResource,ThreadLocalSimple.df.get().format(new Date()));
+        this.orderRepository.save(order);
     }
     
 }
