@@ -26,10 +26,10 @@ public class User implements Serializable{
   @Column(unique=false,name="password",columnDefinition="varchar(200) not null")
   private String password;
 
-  @Column(unique=false,name="age",columnDefinition="tinyint(3) not null")
+  @Column(unique=false,name="age",columnDefinition="tinyint(3)")
   private Integer age;
 
-  @Column(unique=false,name="balance",columnDefinition="bigint(22) not null")
+  @Column(unique=false,name="balance",columnDefinition="bigint(22)")
   private long balance;
 
   public Long getId() {

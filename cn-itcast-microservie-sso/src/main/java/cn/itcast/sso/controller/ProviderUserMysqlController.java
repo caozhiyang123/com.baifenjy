@@ -51,7 +51,7 @@ public class ProviderUserMysqlController {
      *
      * @return
      */
-    @GetMapping("/simple/login")
+    @PostMapping("/simple/login")
     public User findUserByNameAndPass(@RequestParam(value = "username",required = true) String username,@RequestParam(value = "password",required = true) String password){
         return this.userServiceImpl.findUserByNameAndPass(username, password);
     }
@@ -59,12 +59,12 @@ public class ProviderUserMysqlController {
     /**
      * register ,get request
      *
-     * http://localhost:6873/simple/register?username=user11&password=czy123&age=11&balance=11
+     * http://localhost:6873/simple/register?username=user11&password=czy123
      *
      * @return
      */
     @PostMapping("/simple/register")
-    public void addUser(@RequestParam(value = "username", required=true) String username,@RequestParam(value = "password", required=true) String password, @RequestParam(value = "age", required=true) Integer age, @RequestParam(value = "balance", required=true) Long balance){
+    public void addUser(@RequestParam(value = "username", required=true) String username,@RequestParam(value = "password", required=true) String password, @RequestParam(value = "age", required=false,defaultValue="0") Integer age, @RequestParam(value = "balance", required=false,defaultValue="0") Long balance){
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);

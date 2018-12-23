@@ -63,7 +63,7 @@ public class ProviderUserMysqlController {
      * @return
      */
     @PostMapping("/simple/register")
-    public void addUser(@RequestParam(value = "username", required=true) String username,@RequestParam(value = "password", required=true) String password, @RequestParam(value = "age", required=true) Integer age, @RequestParam(value = "balance", required=true) Long balance){
+    public void addUser(@RequestParam(value = "username", required=true) String username,@RequestParam(value = "password", required=true) String password, @RequestParam(value = "age", required=false) Integer age, @RequestParam(value = "balance", required=false) Long balance){
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
