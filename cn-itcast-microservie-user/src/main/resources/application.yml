@@ -1,36 +1,43 @@
 server:
   port: ${port} #服务端口
 
-
 spring:
   application:
-    name: itcast-microservice-user #指定服务名
+    name: itcast-microservice-user
 # = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
 
-# mysql配置
+#数据库配置
   datasource:
-      driver-class-name: com.mysql.jdbc.Driver
-      type: com.jolbox.bonecp.BoneCPDataSource # com.alibaba.druid.pool.DruidDataSource
-      url: jdbc:mysql://127.0.0.1:3306/gms_analytics_db?rewriteBatchedStatements=true
-      username: root
-      password: MyNewPass
-
-# jpa:
-#   hibernate:
-#     #ddl-auto: create #ddl-auto:设为create表示每次都重写建表
-#      ddl-auto: update # ddl-auto:设为update表示每次都不会重写建表
-#   show-sql: true
-
-###########################################################################################
-###########################################################################################
-
-#spring集成Mybatis环境
-#pojo别名扫描包
-# mybatis:
- # type-aliases-package:cn.itcast.microservice.user.pojo
-
-###########################################################################################
-###########################################################################################
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: MyNewPass
+    maxActive: 20
+    maxWait: 60000
+    maxIdle: 8
+    minIdle: 8
+    initialSize: 10
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    
+  jpa:
+    hibernate:
+#      ddl-auto: create #ddl-auto:设为create表示每次都重写建表
+      ddl-auto: update # ddl-auto:设为update表示每次都不会重写建表
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    show-sql: true
+    database: MYSQL
+    databasePlatform: "org.hibernate.dialect.MySQL5InnoDBDialect"
+########################################################
 
 eureka:
   client:
@@ -39,7 +46,6 @@ eureka:
     serviceUrl: #Eureka客户端与Eureka服务端交互地址
       defaultZone: http://oriki:1234@127.0.0.1:6868/eureka/,http://oriki:1234@127.0.0.1:6869/eureka/
       # http://127.0.0.1:6868/eureka/ ,http://127.0.0.1:6869/eureka/
-      #http://oriki:1234@localhost:6869/eureka/
     #eurekaServerConnectionTimeoutSeconds: 60
     #eurekaServerReadTimeoutSeconds: 60
   instance:
@@ -53,13 +59,16 @@ eureka:
 #    enable-self-preservation: false #禁用自我保护模式
 #    eviction-interval-timer-in-ms: 60000 #清理间隔（单位毫秒，默认是60*1000）
 
-
-#security:
-#   basic:
-#     enabled true #开启基于HTTP basic 认证
 ###########################################################################################
+# 修改负载均衡算法：默认是轮询，这里修改为了随机访问
+itcast-microservice-item:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
 ###########################################################################################
 logging:
   level:
     root: info
-  file: /log/log/item.log
+# org.springframework.web:DEBUG
+  file: /log/log/order.log
+
