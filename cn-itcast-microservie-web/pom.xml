@@ -40,18 +40,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!---->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>3.9.0</version>
-        </dependency>
-        <!--ribbon-->
-        <!--ribbon依赖 实现客户端负载均衡-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-ribbon</artifactId>
-        </dependency>
          <!--Feign-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

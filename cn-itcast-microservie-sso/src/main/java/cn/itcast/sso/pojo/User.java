@@ -1,7 +1,6 @@
-package cn.itcast.user.entity;
+package cn.itcast.sso.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +13,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+
 
 @Entity
 @Table(name = "user",uniqueConstraints={@UniqueConstraint(name="name_pass",columnNames={"username","password"})}) //映射的表名称
@@ -92,26 +92,27 @@ public class User implements Serializable{
     {
         this.email = email;
     }
-    
+
     public String getCreated()
     {
         return created;
     }
-    
+
     public void setCreated(String created)
     {
         this.created = created;
     }
-    
+
     public String getUpdated()
     {
         return updated;
     }
-    
+
     public void setUpdated(String updated)
     {
         this.updated = updated;
     }
+   
 
 
 }

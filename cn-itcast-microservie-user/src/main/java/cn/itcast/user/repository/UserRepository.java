@@ -21,8 +21,8 @@ import cn.itcast.user.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>
 {
-    @Query(value="select * from user where username = ?1 and password = ?2",nativeQuery=true)
-    User findUserByUsernameAndPassword(String username ,String password);
+    @Query(value="select * from user where username = ?",nativeQuery=true)
+    User findUserByUsername(String username);
     
     /**
      * 根据用户ID查询一条数据，jpa有一定的查询规则，以一些通用前缀开头，比如findBy、find、get等
@@ -40,10 +40,6 @@ public interface UserRepository extends JpaRepository<User, Long>
     public List<User> listUserEntity();
     
     User findByUsername(String userName);
-    
-    User findByAge(Integer age);
-
-    User findByUsernameAndAge(String userName, Integer age);
     
     List<User> findByUsernameLike(String username);
 

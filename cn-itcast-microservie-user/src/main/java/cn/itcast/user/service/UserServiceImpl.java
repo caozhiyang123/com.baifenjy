@@ -42,12 +42,11 @@ public class UserServiceImpl implements UserService
     }
     
     @Override
-    public User findUserByNameAndPass(String username,String password){
+    public User findUserByName(String username){
         /*User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
         Example<User> example = Example.of(user);
         return this.userRepository.findOne(example);*/
-        return this.userRepository.findUserByUsernameAndPassword(username, password);
+        return this.userRepository.findUserByUsername(username);
     }
 }

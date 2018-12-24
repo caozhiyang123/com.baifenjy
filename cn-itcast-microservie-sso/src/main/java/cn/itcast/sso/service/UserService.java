@@ -1,17 +1,17 @@
 package cn.itcast.sso.service;
 
-
 import java.util.List;
 
-import cn.itcast.sso.entity.User;
+import cn.itcast.sso.pojo.User;
 
 
 public interface UserService
 {
     User  findUserById(Long id);
     List<User> findUserList();
-    User findUserByNameAndPass(String username,String password);
-    void save(User user);
+    User findUserByName(String username);
+    User save(User user);
     List<User> findAll();
     void delete(long id);
+    int selectCount(User record);
 }

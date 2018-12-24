@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import cn.itcast.sso.entity.User;
+import cn.itcast.sso.pojo.User;
+
 
 
 
@@ -21,8 +22,15 @@ import cn.itcast.sso.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>
 {
-    @Query(value="select * from user where username = ?1 and password = ?2",nativeQuery=true)
-    User findUserByUsernameAndPassword(String username ,String password);
+    @Query(value="select * from user where username = ?",nativeQuery=true)
+    User findUserByUsername(String username);
+    
+
+    @Query(value="select * from user where email = ?1",nativeQuery=true)
+    Object findUserByEmail(String email);
+
+    @Query(value="select * from user where phone = ?1",nativeQuery=true)
+    Object findUserByPhone(String phone);
     
     /**
      * 根据用户ID查询一条数据，jpa有一定的查询规则，以一些通用前缀开头，比如findBy、find、get等
@@ -41,11 +49,5 @@ public interface UserRepository extends JpaRepository<User, Long>
     
     User findByUsername(String userName);
     
-    User findByAge(Integer age);
-
-    User findByUsernameAndAge(String userName, Integer age);
-    
     List<User> findByUsernameLike(String username);
-
-
 }
