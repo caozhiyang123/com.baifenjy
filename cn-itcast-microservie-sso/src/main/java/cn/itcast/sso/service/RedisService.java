@@ -1,4 +1,4 @@
-package cn.itcast.sso.utils;
+package cn.itcast.sso.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class RedisService {
             // 执行set
             return func.run(shardedJedis);
         } finally {
-            if (null != shardedJedis) {
+            if (shardedJedis != null) {
                 // 关闭，检测连接是否有效，有效则重置后放回到连接池中，无效则销毁
                 shardedJedis.close();
             }

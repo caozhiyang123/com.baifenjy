@@ -52,6 +52,11 @@
         </dependency>
         <!-- redis -->
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-redis</artifactId>
+            <version>1.0.1.RELEASE</version>
+        </dependency>
+        <dependency>
         <groupId>redis.clients</groupId>
 	        <artifactId>jedis</artifactId>
 	        <version>2.6.0</version>

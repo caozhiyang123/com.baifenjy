@@ -10,7 +10,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-//
 @EnableAutoConfiguration(exclude={    
         JpaRepositoriesAutoConfiguration.class //禁止springboot自动加载持久化bean  
           })

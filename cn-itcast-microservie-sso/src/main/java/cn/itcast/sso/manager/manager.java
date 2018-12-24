@@ -14,8 +14,8 @@ import com.mysql.jdbc.StringUtils;
 
 import cn.itcast.sso.pojo.User;
 import cn.itcast.sso.utils.JsonUtils;
-import cn.itcast.sso.utils.RedisService;
 import cn.itcast.sso.utils.ThreadLocalSimple;
+import cn.itcast.sso.service.RedisService;
 import cn.itcast.sso.service.UserService;
 
 @Service
