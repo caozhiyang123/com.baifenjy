@@ -1,4 +1,4 @@
-package cn.itcast.sso;
+package cn.itcast.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +14,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableAutoConfiguration(exclude={    
         JpaRepositoriesAutoConfiguration.class //禁止springboot自动加载持久化bean  
           })
-@EnableJpaRepositories(basePackages={"cn.itcast.sso.repository"})
+@EnableJpaRepositories(basePackages={"cn.itcast.user.repository"})
 @EnableEurekaClient
 @SpringBootApplication
-@ComponentScan(basePackages={"cn.itcast.sso"})
+@ComponentScan(basePackages={"cn.itcast.user"})
 public class UserApplication
 {
     private static final Logger log = LoggerFactory.getLogger(UserApplication.class);

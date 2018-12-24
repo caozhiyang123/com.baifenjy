@@ -1,4 +1,4 @@
-package cn.itcast.sso.controller;
+package cn.itcast.user.controller;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.itcast.sso.entity.User;
-import cn.itcast.sso.service.UserService;
+import cn.itcast.user.entity.User;
+import cn.itcast.user.service.UserService;
 
 
 @RestController

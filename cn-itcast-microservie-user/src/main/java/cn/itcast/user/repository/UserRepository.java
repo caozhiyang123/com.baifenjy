@@ -1,4 +1,4 @@
-package cn.itcast.sso.repository;
+package cn.itcast.user.repository;
 
 
 import java.util.List;
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import cn.itcast.sso.entity.User;
+import cn.itcast.user.entity.User;
 
 
 

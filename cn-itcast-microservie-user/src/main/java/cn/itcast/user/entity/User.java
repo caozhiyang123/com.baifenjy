@@ -1,4 +1,4 @@
-package cn.itcast.sso.entity;
+package cn.itcast.user.entity;
 
 import java.io.Serializable;
 

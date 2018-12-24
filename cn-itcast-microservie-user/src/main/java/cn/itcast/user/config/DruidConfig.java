@@ -1,4 +1,4 @@
-package cn.itcast.sso.config;
+package cn.itcast.user.config;
 
 import java.sql.SQLException;
 

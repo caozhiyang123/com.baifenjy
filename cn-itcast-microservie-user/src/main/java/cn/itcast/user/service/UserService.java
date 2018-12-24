@@ -1,9 +1,9 @@
-package cn.itcast.sso.service;
+package cn.itcast.user.service;
 
 
 import java.util.List;
 
-import cn.itcast.sso.entity.User;
+import cn.itcast.user.entity.User;
 
 
 public interface UserService

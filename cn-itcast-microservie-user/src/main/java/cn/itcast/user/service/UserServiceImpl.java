@@ -1,4 +1,4 @@
-package cn.itcast.sso.service;
+package cn.itcast.user.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import cn.itcast.sso.entity.User;
-import cn.itcast.sso.repository.UserRepository;
+import cn.itcast.user.entity.User;
+import cn.itcast.user.repository.UserRepository;
 
 
 @Service
