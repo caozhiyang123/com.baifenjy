@@ -12,7 +12,7 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     username: root
-    password: root
+    password: MyNewPass
     maxActive: 20
     maxWait: 60000
     maxIdle: 8

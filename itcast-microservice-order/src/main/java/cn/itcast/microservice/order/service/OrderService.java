@@ -21,8 +21,6 @@ public class OrderService {
     private ItemService itemService;
     /**
       * 根据订单id查询订单数据
-      *  
-      *
       * @param orderId
       * @return
       */
@@ -43,14 +41,32 @@ public class OrderService {
 
         return orderVO;
     }
+    
+    /**
+     * 根据订单id查询订单数据
+     * @param orderId
+     * @return
+     */
     public String queryOrderOfEduById(String orderId)
     {
         return this.itemService.queryOrderItemById(orderId);
     }
+    
+    /**
+     * 分页查询
+     * @param orderId
+     * @return
+     */
     public String pageQueryOfEduOrder(int pageNum, int pageSize)
     {
         return this.itemService.pageQueryOfEduOrder(pageNum,pageSize);
     }
+    
+    /**
+     * 保存订单
+     * @param orderId
+     * @return
+     */
     public void saveOrderOfEdu(String orderId, String studentName, int studentAge, int studentSex, String studentGrade,
             String studentSubject, String address, String otherImportants, String cost, String parentsName,
             String phoneNum, String qqNum, String weChatNum, String messageResource)
