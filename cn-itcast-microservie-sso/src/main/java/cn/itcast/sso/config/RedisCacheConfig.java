@@ -16,11 +16,11 @@ import redis.clients.jedis.ShardedJedisPool;
 @Configuration
 @EnableCaching
 public class RedisCacheConfig extends CachingConfigurerSupport{
-    @Value("${spring.redis.host}")
-    private  String redisHost;
+    @Value("${spring.redis.host1}")
+    private  String redisHost1;
  
-    @Value("${spring.redis.port}")
-    private  int redisPort;
+    @Value("${spring.redis.port1}")
+    private  int redisPort1;
  
     @Value("${spring.redis.password}")
     private  String password;
@@ -48,15 +48,15 @@ public class RedisCacheConfig extends CachingConfigurerSupport{
         jedisPoolConfig.setMaxIdle(maxIdle);
         jedisPoolConfig.setMaxTotal(maxTotal);
         jedisPoolConfig.setMinIdle(minIdle);
-        
+        //redis 集群
         ArrayList<JedisShardInfo> list = new ArrayList<JedisShardInfo>();
-        JedisShardInfo jedisShardInfo = new JedisShardInfo(redisHost,redisPort);
-        jedisShardInfo.setPassword(password);
-        jedisShardInfo.setConnectionTimeout(timeout);
+        JedisShardInfo jedisShardInfo1 = new JedisShardInfo(redisHost1,redisPort1);
+        jedisShardInfo1.setPassword(password);
+        jedisShardInfo1.setConnectionTimeout(timeout);
         
-        list.add(jedisShardInfo);
+        list.add(jedisShardInfo1);
         
-        ShardedJedisPool shardedJedisPool = new ShardedJedisPool(jedisPoolConfig,new ArrayList<JedisShardInfo>());
+        ShardedJedisPool shardedJedisPool = new ShardedJedisPool(jedisPoolConfig,list);
         
         return  shardedJedisPool;
     }

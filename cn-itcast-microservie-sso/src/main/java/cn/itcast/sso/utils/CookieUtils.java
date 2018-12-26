@@ -193,10 +193,13 @@ public final class CookieUtils {
 			serverName = serverName.substring(7);
 			final int end = serverName.indexOf("/");
 			serverName = serverName.substring(0, end);
+			if(serverName.indexOf(":") > 0){
+			    return serverName.substring(0, serverName.indexOf(":"));
+			}
 			final String[] domains = serverName.split("\\.");
 			int len = domains.length;
 			if (len > 3) {
-				// www.xxx.com.cn
+				// www.xxx.com.cn 127.0.0.1:6875
 				domainName = "." + domains[len - 3] + "." + domains[len - 2] + "." + domains[len - 1];
 			} else if (len <= 3 && len > 1) {
 				// xxx.com or xxx.cn
@@ -205,7 +208,7 @@ public final class CookieUtils {
 				domainName = serverName;
 			}
 		}
-
+		// .0.0.1:6875
 		if (domainName != null && domainName.indexOf(":") > 0) {
 			String[] ary = domainName.split("\\:");
 			domainName = ary[0];
