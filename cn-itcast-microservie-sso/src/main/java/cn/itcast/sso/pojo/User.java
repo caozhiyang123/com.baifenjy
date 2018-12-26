@@ -29,7 +29,7 @@ public class User implements Serializable{
   private String username;
 
   @Length(min = 6, max = 20, message = "密码必须是6~20位之间")
-  @Column(unique=false,name="password",columnDefinition="varchar(20) not null")
+  @Column(unique=false,name="password",columnDefinition="varchar(100) not null")
   private String password;
 
   @Pattern(regexp = "^1[3587]\\d{9}$", message = "手机格式不正确")
@@ -112,7 +112,12 @@ public class User implements Serializable{
     {
         this.updated = updated;
     }
+
+    @Override
+    public String toString()
+    {
+        return "User [id=" + id + ", username=" + username + ", password=" + password + ", phone=" + phone + ", email="
+                + email + ", created=" + created + ", updated=" + updated + "]";
+    }
    
-
-
 }

@@ -3,6 +3,7 @@ package cn.itcast.sso.config;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -36,11 +37,12 @@ public class RedisCacheConfig extends CachingConfigurerSupport{
     @Value("${spring.redis.pool.min-idle}")
     private int minIdle;
 
-    @Value("${spring.redis.pool.timeout}")
+    @Value("${spring.redis.timeout}")
     private int timeout;
  
     @Bean
-    public ShardedJedisPool redisCF(){
+    @ConditionalOnMissingBean(name="shardedJedisPool")
+    public ShardedJedisPool shardedJedisPool(){
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
         jedisPoolConfig.setMaxIdle(maxIdle);
@@ -50,7 +52,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport{
         ArrayList<JedisShardInfo> list = new ArrayList<JedisShardInfo>();
         JedisShardInfo jedisShardInfo = new JedisShardInfo(redisHost,redisPort);
         jedisShardInfo.setPassword(password);
-        jedisShardInfo.setTimeout(timeout);
+        jedisShardInfo.setConnectionTimeout(timeout);
         
         list.add(jedisShardInfo);
         

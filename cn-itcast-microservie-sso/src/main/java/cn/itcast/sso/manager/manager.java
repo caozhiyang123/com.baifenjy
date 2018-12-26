@@ -26,6 +26,8 @@ public class manager {
 
     @Autowired
     private RedisService redisService;
+    
+    private static final String TOKEN = "TOKEN_";
 
     public Boolean checkData(String param, Integer type) {
         User record = new User();
@@ -54,7 +56,7 @@ public class manager {
         user.setUpdated(date);
         // 密码需要加密
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
-        return this.userService.save(user) == null ? true:false;
+        return this.userService.save(user) == 1 ? true:false;
     }
 
     public String doLogin(String username, String password) throws JsonProcessingException {
@@ -75,13 +77,13 @@ public class manager {
         String token = DigestUtils.md5Hex(DigestUtils.md5Hex(username) + System.currentTimeMillis());
 
         // 写入redis
-        this.redisService.setex("TOKEN_" + token.toUpperCase(), JsonUtils.toString(user), 1800);//30min
+        this.redisService.setex(TOKEN + token.toUpperCase(), JsonUtils.toString(user), 1800);//30min
 
         return token;
     }
 
     public User queryUserByToken(String token) {
-        String key = "TOKEN_" + token.toUpperCase();
+        String key = TOKEN + token.toUpperCase();
         // 查询redis
         String json = this.redisService.get(key);
         if(StringUtils.isNullOrEmpty(json)){

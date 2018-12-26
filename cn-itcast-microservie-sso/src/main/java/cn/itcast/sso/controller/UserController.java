@@ -100,7 +100,7 @@ public class UserController {
             }
 
             boolean boo = this.manager.register(user);
-            if (boo) {
+            if (!boo) {
                 return Result.build(400, "参数有误");
             }
             return Result.ok();
@@ -118,8 +118,8 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "doLogin")
-    public Result doLogin(@RequestParam("username") String username,
-            @RequestParam("password") String password, HttpServletRequest request,
+    public Result doLogin(@RequestParam(value="username",required=true) String username,
+            @RequestParam(value="password",required=true) String password, HttpServletRequest request,
             HttpServletResponse response) {
         try {
             // 登录
@@ -133,7 +133,7 @@ public class UserController {
             return Result.ok(token);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.build(500, "登录失败，未知异常！");
+            return Result.build(500, "登录失败，未知异常！"+e.toString());
         }
     }
     

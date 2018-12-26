@@ -7,11 +7,8 @@ import cn.itcast.sso.pojo.User;
 
 public interface UserService
 {
-    User  findUserById(Long id);
     List<User> findUserList();
     User findUserByName(String username);
-    User save(User user);
-    List<User> findAll();
-    void delete(long id);
+    int save(User user);
     int selectCount(User record);
 }

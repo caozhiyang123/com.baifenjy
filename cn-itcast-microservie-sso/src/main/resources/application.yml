@@ -39,10 +39,11 @@ spring:
     databasePlatform: "org.hibernate.dialect.MySQL5InnoDBDialect"
     
   redis:
-    database: 0   # Redis数据库索引（默认为0）
+    database: 1   # Redis数据库索引（默认为0）
     host: 127.0.0.1 # Redis服务器地址
     port: 6379  # Redis服务器连接端口
     password: 123456 # Redis服务器连接密码（默认为空）
+    testOnBorrow: true
     pool:
       max-active: 8  # 连接池最大连接数（使用负值表示没有限制）
       max-wait: 1  # 连接池最大阻塞等待时间（使用负值表示没有限制）
