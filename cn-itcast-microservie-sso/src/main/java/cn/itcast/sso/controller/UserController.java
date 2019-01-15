@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 
@@ -54,9 +55,11 @@ public class UserController {
      * 
      * @return
      */
+    @ResponseBody
     @GetMapping(value = "/login")
-    public String toLogin() {
-        return "login";
+    public ModelAndView toLogin() {
+        ModelAndView md = new ModelAndView("/login.html");
+        return md;
     }
     
     /**

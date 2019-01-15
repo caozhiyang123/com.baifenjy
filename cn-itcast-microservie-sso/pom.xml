@@ -102,4 +102,5 @@
         </plugins>
         <defaultGoal>compile</defaultGoal>
     </build>
+    <packaging>war</packaging>
 </project>
