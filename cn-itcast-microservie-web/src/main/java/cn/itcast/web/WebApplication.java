@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableEurekaClient
 @SpringBootApplication
-@ComponentScan(basePackages={"cn.itcast.sso"})
+@ComponentScan(basePackages={"cn.itcast.web"})
 public class WebApplication
 {
 private static final Logger log = LoggerFactory.getLogger(WebApplication.class);

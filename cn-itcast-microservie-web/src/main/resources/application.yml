@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: itcast-microservice-web
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
 # = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
 
 

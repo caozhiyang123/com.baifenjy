@@ -88,15 +88,16 @@
                        type: "POST",
                        url: "/user/doLogin",
                        data: {username:$("[name=username]").val(),password:$("[name=password]").val()},
-                       success: function(data){
+                       /* success: function(data){
                     	   console.info('success:'+data);
                        },
                        error: function(data){
                     	   console.info('error:'+data.status+','+data.msg);
-                       }
-                       /* statusCode : {
+                       } */
+                       statusCode : {
                            200 : function(){
-                               $.messager.alert('提示','登陆成功!');
+                        	   console.info('提示','登陆成功!');
+                        	   window.location.href="127.0.0.1:6876/page/index"; 
                            },
                            400 : function(){
                         	   console.info('提示','登陆失败! username:'+username+',password:'+password);
@@ -107,7 +108,7 @@
                            500 :function(data){
                         	   console.info(data);
                            }
-                       } */
+                       } 
                     });
                 },
                 clearForm : function(){
