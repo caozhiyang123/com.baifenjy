@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: itcast-microservice-sso
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+#  mvc:
+#    static-path-pattern: /**
+#  resources: 
+#    static-locations: classpath:/WEB-INF/views
 # = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
 
 #数据库配置
@@ -27,7 +35,11 @@ spring:
     poolPreparedStatements: true
     maxPoolPreparedStatementPerConnectionSize: 20
     filters: stat,wall,log4j
-    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    connectionProperties: 
+      druid:
+        stat:
+          mergeSql: true
+          slowSqlMillis: 5000
     
   jpa:
     hibernate:
@@ -36,7 +48,7 @@ spring:
 #      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     show-sql: true
     database: MYSQL
-    databasePlatform: "org.hibernate.dialect.MySQL5InnoDBDialect"
+    databasePlatform: org.hibernate.dialect.MySQL5InnoDBDialect
     
   redis:
     database: 1   # Redis数据库索引（默认为0）
@@ -84,3 +96,5 @@ logging:
     root: info
 # org.springframework.web:DEBUG
   file: /log/log/order.log
+  
+  

@@ -55,11 +55,9 @@ public class UserController {
      * 
      * @return
      */
-    @ResponseBody
     @GetMapping(value = "/login")
-    public ModelAndView toLogin() {
-        ModelAndView md = new ModelAndView("/login.html");
-        return md;
+    public String toLogin() {
+        return "login";
     }
     
     /**
