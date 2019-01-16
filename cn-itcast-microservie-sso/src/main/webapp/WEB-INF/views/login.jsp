@@ -87,8 +87,14 @@
                     $.ajax({
                        type: "POST",
                        url: "/user/doLogin",
-                       data: {username:$("[name=username]").val(),password:$("[name=password]").val()}, // $("#loginFrom").serialize(),
-                       statusCode : {
+                       data: {username:$("[name=username]").val(),password:$("[name=password]").val()},
+                       success: function(data){
+                    	   console.info('success:'+data);
+                       },
+                       error: function(data){
+                    	   console.info('error:'+data.status+','+data.msg);
+                       }
+                       /* statusCode : {
                            200 : function(){
                                $.messager.alert('提示','登陆成功!');
                            },
@@ -101,7 +107,7 @@
                            500 :function(data){
                         	   console.info(data);
                            }
-                       }
+                       } */
                     });
                 },
                 clearForm : function(){

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -66,6 +67,7 @@ public class UserController {
      * @param type
      * @return
      */
+    @ResponseBody
     @GetMapping(value = "/check/{param}/{type}")
     public ResponseEntity<Boolean> checkData(@PathVariable("param") String param,
             @PathVariable("type") Integer type) {
@@ -87,6 +89,7 @@ public class UserController {
      * @param user
      * @return
      */
+    @ResponseBody
     @PostMapping(value = "doRegister")
     public Result register(@Valid User user, BindingResult result) {
         try {
@@ -117,6 +120,7 @@ public class UserController {
      * @param password
      * @return
      */
+    @ResponseBody
     @PostMapping(value = "doLogin")
     public Result doLogin(@RequestParam(value="username",required=true) String username,
             @RequestParam(value="password",required=true) String password, HttpServletRequest request,
@@ -130,6 +134,7 @@ public class UserController {
             // 登录成功，把token写入cookie中
             CookieUtils.setCookie(request, response, COOKIE_NAME, token);
             // 返回结果
+            System.out.println(token);
             return Result.ok(token);
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,6 +147,7 @@ public class UserController {
      * @param token
      * @return
      */
+    @ResponseBody
     @GetMapping(value = "{token}")
     public String queryUserByToken(@PathVariable("token") String token) {
         try {
