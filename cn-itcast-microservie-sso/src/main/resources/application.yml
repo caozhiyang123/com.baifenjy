@@ -8,10 +8,6 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
-#  mvc:
-#    static-path-pattern: /**
-#  resources: 
-#    static-locations: classpath:/WEB-INF/views
 # = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
 
 #数据库配置
