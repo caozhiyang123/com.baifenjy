@@ -97,7 +97,7 @@
                        statusCode : {
                            200 : function(){
                         	   console.info('提示','登陆成功!');
-                        	   window.location.href="127.0.0.1:6876/page/index"; 
+                        	   window.location.href="http://127.0.0.1:6876/page/index"; 
                            },
                            400 : function(){
                         	   console.info('提示','登陆失败! username:'+username+',password:'+password);
