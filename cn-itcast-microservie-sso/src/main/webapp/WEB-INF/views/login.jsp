@@ -30,11 +30,12 @@
     		var username = $("[name=username]").val();
     		var password = $("[name=password]").val();
     		
-    		if(username!="admin" || password!="admin"){
+    		/* if(username!="admin" || password!="admin"){
     			$.messager.alert('错误',"用户名密码不正确！");
     			return ;
     		}
-    		window.location.href="/rest/page/index";
+    		window.location.href="/rest/page/index"; */
+    		
     	});
     </script>
 </body>
