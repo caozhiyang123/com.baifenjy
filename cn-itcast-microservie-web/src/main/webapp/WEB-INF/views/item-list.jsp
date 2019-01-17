@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <table class="easyui-datagrid" id="itemList" title="订单列表" 
-       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/page/order/pageQuery',method:'get',pageSize:30,toolbar:toolbar">
+       data-options="singleSelect:false,collapsible:true,pagination:true,url:'http://127.0.0.1:6870/order/pageQuery',method:'get',pageSize:30,toolbar:toolbar">
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
@@ -10,9 +10,9 @@
             <th data-options="field:'orderAdditional',width:100">订单补充</th>
             <th data-options="field:'teacherItem',width:100">老师详情</th>
             <th data-options="field:'teacherAdditional',width:100">老师补充</th>
-            <th data-options="field:'status',width:60,align:'center',formatter:TAOTAO.formatItemStatus">订单状态</th>
-            <th data-options="field:'created',width:130,align:'center',formatter:TAOTAO.formatDateTime,sortable:true">创建日期</th>
-            <th data-options="field:'updated',width:130,align:'center',formatter:TAOTAO.formatDateTime,sortable:true">更新日期</th>
+            <th data-options="field:'status',width:50,align:'center'">订单状态</th>
+            <th data-options="field:'created',width:130,align:'center',sortable:true">创建日期</th>
+            <th data-options="field:'updated',width:130,align:'center',sortable:true">更新日期</th>
         </tr>
     </thead>
 </table>
@@ -60,59 +60,15 @@
         handler:function(){
         	var ids = getSelectionsIds();
         	if(ids.length == 0){
-        		$.messager.alert('提示','未选中商品!');
+        		$.messager.alert('提示','未选中订单!');
         		return ;
         	}
-        	$.messager.confirm('确认','确定删除ID为 '+ids+' 的商品吗？',function(r){
+        	$.messager.confirm('确认','确定删除ID为 '+ids+' 的订单吗？',function(r){
         	    if (r){
         	    	var params = {"ids":ids,"_method":"DELETE"};
-                	$.post("/rest/page/item/delete",params, function(data,status,xhr){
+                	$.post("http://127.0.0.1:6870/order/delete",params, function(data,status,xhr){
             			if(xhr.status == 204){
             				$.messager.alert('提示','删除商品成功!',undefined,function(){
-            					$("#itemList").datagrid("reload");
-            				});
-            			}
-            		});
-        	    }
-        	});
-        }
-    },'-',{
-        text:'下架',
-        iconCls:'icon-remove',
-        handler:function(){
-        	var ids = getSelectionsIds();
-        	if(ids.length == 0){
-        		$.messager.alert('提示','未选中商品!');
-        		return ;
-        	}
-        	$.messager.confirm('确认','确定下架ID为 '+ids+' 的商品吗？',function(r){
-        	    if (r){
-        	    	var params = {"ids":ids,"_method":"PUT"};
-                	$.post("/rest/page/item/instock",params, function(data){
-            			if(data == 204){
-            				$.messager.alert('提示','下架商品成功!',undefined,function(){
-            					$("#itemList").datagrid("reload");
-            				});
-            			}
-            		});
-        	    }
-        	});
-        }
-    },{
-        text:'上架',
-        iconCls:'icon-remove',
-        handler:function(){
-        	var ids = getSelectionsIds();
-        	if(ids.length == 0){
-        		$.messager.alert('提示','未选中商品!');
-        		return ;
-        	}
-        	$.messager.confirm('确认','确定上架ID为 '+ids+' 的商品吗？',function(r){
-        	    if (r){
-        	    	var params = {"ids":ids,"_method":"PUT"};
-                	$.post("/rest/page/item/reshelf",params, function(data){
-            			if(data == 204){
-            				$.messager.alert('提示','上架商品成功!',undefined,function(){
             					$("#itemList").datagrid("reload");
             				});
             			}

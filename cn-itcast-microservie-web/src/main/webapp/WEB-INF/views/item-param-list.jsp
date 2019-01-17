@@ -4,28 +4,21 @@
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
-        	<th data-options="field:'id',width:60">ID</th>
-        	<th data-options="field:'itemCatId',width:80">商品类目ID</th>
-        	<th data-options="field:'itemCatName',width:100">商品类目</th>
-            <th data-options="field:'paramData',width:300,formatter:formatItemParamData">规格(只显示分组名称)</th>
-            <th data-options="field:'created',width:130,align:'center',formatter:TAOTAO.formatDateTime">创建日期</th>
-            <th data-options="field:'updated',width:130,align:'center',formatter:TAOTAO.formatDateTime">更新日期</th>
+        	<th data-options="field:'id',width:60">订单ID</th>
+            <th data-options="field:'title',width:100">订单标题</th>
+            <th data-options="field:'orderItem',width:100">订单详情</th>
+            <th data-options="field:'orderAdditional',width:100">订单补充</th>
+            <th data-options="field:'teacherItem',width:100">老师详情</th>
+            <th data-options="field:'teacherAdditional',width:100">老师补充</th>
+            <th data-options="field:'status',width:50,align:'center'">订单状态</th>
+            <th data-options="field:'created',width:130,align:'center'">创建日期</th>
+            <th data-options="field:'updated',width:130,align:'center'">更新日期</th>
         </tr>
     </thead>
 </table>
-<div id="itemParamEditWindow" class="easyui-window" title="编辑商品" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/rest/page/item-param-edit'" style="width:80%;height:80%;padding:10px;">
+<div id="itemParamEditWindow" class="easyui-window" title="编辑订单显示列" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/page/item-param-edit'" style="width:80%;height:80%;padding:10px;">
 </div>
 <script>
-
-	function formatItemParamData(value , index){
-		var json = JSON.parse(value);
-		var array = [];
-		$.each(json,function(i,e){
-			array.push(e.group);
-		});
-		return array.join(",");
-	}
-
     function getSelectionsIds(){
     	var itemList = $("#itemParamList");
     	var sels = itemList.datagrid("getSelections");
@@ -42,7 +35,7 @@
         iconCls:'icon-add',
         handler:function(){
         	TAOTAO.createWindow({
-        		url : "/rest/page/item-param-add",
+        		url : "/page/item-param-add",
         	});
         }
     },{
@@ -83,18 +76,18 @@
         handler:function(){
         	var ids = getSelectionsIds();
         	if(ids.length == 0){
-        		$.messager.alert('提示','未选中商品规格!');
+        		$.messager.alert('提示','未选中订单显示列!');
         		return ;
         	}
-        	$.messager.confirm('确认','确定删除ID为 '+ids+' 的商品规格吗？',function(r){
+        	$.messager.confirm('确认','确定删除ID为 '+ids+' 的订单显示列吗？',function(r){
         	    if (r){
         	    	var params = {"ids":ids,"_method":"DELETE"};
-                	$.post("/rest/item/param/delete",params, function(data,status,xhr){
+                	$.post("/order/param/delete",params, function(data,status,xhr){
                 		console.info(data);
                 		console.info(status);
                 		console.info(xhr);
             			if(status == "nocontent"){
-            				$.messager.alert('提示','删除商品规格成功!',undefined,function(){
+            				$.messager.alert('提示','删除订单显示列成功!',undefined,function(){
             					$("#itemParamList").datagrid("reload");
             				});
             			}

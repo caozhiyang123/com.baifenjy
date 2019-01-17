@@ -8,35 +8,51 @@
 	    <table cellpadding="5">
 	        <tr>
 	            <td>订单标题:</td>
-	            <td><input class="easyui-textbox" type="text" name="title" data-options="required:true" style="width: 280px;"></input></td>
+	            <td>
+	               <input class="easyui-textbox" type="text" name="title" data-options="required:true" style="width: 280px;"></input>
+	            </td>
 	        </tr>
 	        <tr>
-	            <td>订单详情:</td>
-	            <td><input class="easyui-textbox" name="orderItem" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input></td>
-	        </tr>
+                <td>订单详情:</td>
+                <td>
+                    <textarea style="width:800px;height:300px;visibility:hidden;" name="orderItem"></textarea>
+                </td>
+            </tr>
 	        <tr>
-	            <td>订单补充:</td>
-	            <td><input class="easyui-textbox" name="orderAdditional" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input></td>
-	        </tr>
-	        <tr>
-	            <td>老师详情:</td>
-	            <td><input class="easyui-textbox" name="teacherItem" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input></td>
-	        </tr>
-	        <tr>
-	            <td>老师补充:</td>
-	            <td><input class="easyui-textbox" name="teacherAdditional" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input></td>
-	        </tr>
+                <td>订单补充:</td>
+                <td>
+                    <textarea style="width:800px;height:300px;visibility:hidden;" name="orderAdditional"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>老师详情:</td>
+                <td>
+                    <textarea style="width:800px;height:300px;visibility:hidden;" name="teacherItem"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>老师补充:</td>
+                <td>
+                    <textarea style="width:800px;height:300px;visibility:hidden;" name="teacherAdditional"></textarea>
+                </td>
+            </tr>
 	        <tr>
 	            <td>订单状态:</td>
-	            <td><input class="easyui-textbox" name="status" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 60px;"></input></td>
+	            <td>
+	               <input class="easyui-combobox" name="status"  data-options="valueField:'id',textField:'text',url:'json/status.json'"></input>
+	            </td>
 	        </tr>
 	        <tr>
 	            <td>创建日期:</td>
-	            <td><input class="easyui-textbox" name="created" data-options="multiline:true,validType:'length[0,150]'" disabled="disabled" style="height:60px;width: 100px;"></input></td>
+	            <td>
+	               <input class="easyui-textbox" name="created" data-options="multiline:true,validType:'length[0,150]'" disabled="disabled" style="height:60px;width: 100px;"></input>
+	            </td>
 	        </tr>
 	        <tr>
 	            <td>更新日期:</td>
-	            <td><input class="easyui-textbox" name="updated" data-options="multiline:true,validType:'length[0,150]'" disabled="disabled" style="height:60px;width: 100px;"></input></td>
+	            <td>
+	               <input class="easyui-textbox" name="updated" data-options="multiline:true,validType:'length[0,150]'" disabled="disabled" style="height:60px;width: 100px;"></input>
+	            </td>
 	        </tr>
 	        <tr><td><input type="hidden" name="id"/></td></tr>
 	    </table>
@@ -46,20 +62,15 @@
 	</div>
 </div>
 <script type="text/javascript">
-	var itemEditEditor ;
+	var orderItemEditor ;
+	var teacherAdditionalEditor ;
+	var teacherItemEditor ;
+	var teacherAdditionalEditor ;
 	$(function(){
-		//实例化富文本 编辑器
-		itemEditEditor = TAOTAO.createEditor("#itemeEditForm [name=desc]");
-		 /* var param = {fun:function(node){
-			TAOTAO.changeItemParam(node, "itemeEditForm");
-					},
-					cname:node.text
-		}; 
-		TAOTAO.init(param); */
-		
-		
-		
-		
+	    orderItemEditor = TAOTAO.createEditor("#orderAddForm [name=orderItem]");
+	    teacherAdditionalEditor = TAOTAO.createEditor("#orderAddForm [name=teacherAdditional]");
+	    teacherItemEditor = TAOTAO.createEditor("#orderAddForm [name=teacherItem]");
+	    teacherAdditionalEditor = TAOTAO.createEditor("#orderAddForm [name=teacherAdditional]");
 	});
 	
 	function submitForm(){
@@ -67,41 +78,17 @@
 			$.messager.alert('提示','表单还未填写完成!');
 			return ;
 		}
-		$("#itemeEditForm [name=price]").val(eval($("#itemeEditForm [name=priceView]").val()) * 100);
-		itemEditEditor.sync();
+		//将编辑器中的内容同步到隐藏多行文本中
+        orderItemEditor.sync();
+        teacherAdditionalEditor.sync();
+        teacherItemEditor.sync();
+        teacherAdditionalEditor.sync();
 		
-		//生成最终的规格参数数据
-		var paramJson = [];
-		$("#itemeEditForm .params li").each(function(i,e){
-			//获取tr商品规格标签下所有子tr标签
-			var trs = $(e).find("tr");
-			//eq:是根据下标获取jquery对象
-			//get:是根据下标获取dom对象
-			//获取第一个tr标签文本内容
-			var group = trs.eq(0).text();
-			var ps = [];
-			//遍历所有子tr标签
-			for(var i=1;i<trs.length;i++){
-				//从第二个tr标签开始获取每一个tr标签
-				var tr = trs.eq(i);
-				ps.push({
-					"k":$.trim(tr.find("td").eq(0).find("span").text()),
-					"v":$.trim(tr.find("input").val())
-				});
-			}
-			paramJson.push({
-				"group":group,
-				"params":ps
-			});
-		});
-		//将数组转换为json
-		paramJson = JSON.stringify(paramJson);
-		$("#itemeEditForm [name=itemParams]").val(paramJson);
 		
 		//提交到后台的RESTful
 		$.ajax({
 		   type: "PUT",
-		   url: "/rest/page/item/edit",
+		   url: "http://127.0.0.1:6870/order/edit",
 		   data: $("#itemeEditForm").serialize(),
 		   statusCode : {
 			   204 : function(){

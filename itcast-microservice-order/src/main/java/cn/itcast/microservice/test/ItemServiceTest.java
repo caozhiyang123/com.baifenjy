@@ -1,6 +1,5 @@
 package cn.itcast.microservice.test;
 
-import cn.itcast.microservice.order.OrderApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import cn.itcast.microservice.OrderApplication;
 
 /**
  * Created by czy on 2018-03-31.
