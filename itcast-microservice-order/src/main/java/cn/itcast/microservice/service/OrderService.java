@@ -8,5 +8,4 @@ import cn.itcast.microservice.pojo.Order;
 public class OrderService extends BaseService<Order>
 {
 
-
 }

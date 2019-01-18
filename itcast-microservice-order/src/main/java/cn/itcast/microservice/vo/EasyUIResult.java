@@ -1,16 +1,25 @@
 package cn.itcast.microservice.vo;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SuppressWarnings("all")
-public class EasyUIResult {
+public class EasyUIResult implements Serializable{
+    
+    //序列化为json数据时以t作为k
+    @JsonProperty("t")
 	private Long total;
+    
+    //序列化为json数据时以r作为k
+    @JsonProperty("r")
 	private List<?> rows;
+    
 	public Long getTotal() {
 		return total;
 	}

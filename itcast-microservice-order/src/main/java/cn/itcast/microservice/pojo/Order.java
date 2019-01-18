@@ -19,20 +19,26 @@ public class Order extends BasePojo{
     @Column(unique=true,name="title",columnDefinition="varchar(50) not null")
     private String title;
     
-    @Column(unique=true,name="order_item",columnDefinition="varchar(50)")
+    @Column(name="order_item",columnDefinition="varchar(50)")
     private String orderItem;
     
-    @Column(unique=true,name="order_additional",columnDefinition="varchar(50)")
+    @Column(name="order_additional",columnDefinition="varchar(50)")
     private String orderAdditional;
     
-    @Column(unique=true,name="teacher_item",columnDefinition="varchar(50)")
+    @Column(name="teacher_item",columnDefinition="varchar(50)")
     private String teacherItem;
     
-    @Column(unique=true,name="teacher_additional",columnDefinition="varchar(50)")
+    @Column(name="teacher_additional",columnDefinition="varchar(50)")
     private String teacherAdditional;
     
-    @Column(unique=true,name="status",columnDefinition="byte(2)")
+    @Column(name="status",columnDefinition="tinyint(2)")
     private Byte status;//0:undo,1:doing,2:success,3:fail
+    
+    @Column(name="created",columnDefinition="varchar(50) not null")
+    private String created;
+
+    @Column(name="updated",columnDefinition="varchar(50) not null")
+    private String updated;
     
     public Long getId()
     {
@@ -89,6 +95,28 @@ public class Order extends BasePojo{
     public void setStatus(Byte status)
     {
         this.status = status;
+    }
+    
+    public String getCreated()
+    {
+        return created;
+    }
+
+    public void setCreated(String created)
+    {
+        super.setCreated(created);
+        this.created = created;
+    }
+
+    public String getUpdated()
+    {
+        return updated;
+    }
+
+    public void setUpdated(String updated)
+    {
+        super.setUpdated(updated);
+        this.updated = updated;
     }
     
 }

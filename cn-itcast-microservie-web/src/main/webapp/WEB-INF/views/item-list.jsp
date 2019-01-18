@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <table class="easyui-datagrid" id="itemList" title="订单列表" 
-       data-options="singleSelect:false,collapsible:true,pagination:true,url:'http://127.0.0.1:6870/order/pageQuery',method:'get',pageSize:30,toolbar:toolbar">
+       data-options="singleSelect:false,collapsible:true,pagination:true,toolbar:toolbar"><!-- ,url:'/order/pageQuery',method:'get',pageSize:30 -->
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
@@ -19,6 +19,26 @@
 <div id="itemEditWindow" class="easyui-window" title="编辑订单" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/page/item-edit'" style="width:80%;height:80%;padding:10px;">
 </div>
 <script>
+
+   $(function(){
+    	$.ajax({
+            type:"GET",
+            url:"http://127.0.0.1:6870/order/pageQuery?callback_=order_dataServer", //访问的链接
+            dataType:"jsonp",  //数据格式设置为jsonp
+            data:{page:1,rows:30,sort:'updated',order:'DESC'},
+            success:function(data){  //成功的回调函数
+            	console.info(data);
+            },
+            error: function (e) {
+            	console.info(e);
+            }
+        });
+    });
+
+    function order_dataServer(data){
+    	console.info(data.t+","+data.r);
+    }
+    
     function getSelectionsIds(){
     	var itemList = $("#itemList");
     	var sels = itemList.datagrid("getSelections");

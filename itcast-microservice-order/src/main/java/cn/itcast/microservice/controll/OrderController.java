@@ -6,26 +6,36 @@ import cn.itcast.microservice.vo.EasyUIResult;
 
 import java.util.List;
 
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 
-@RestController
+@Controller
 @RequestMapping("order")
 public class OrderController {
     @Autowired
     private OrderService orderService;
     
+    private ObjectMapper MAPPER = new ObjectMapper();
+    
+    // http://127.0.0.1:6870/order/pageQuery?page=1&rows=30&sort=updated&order=DESC&callback_=order
+    
+    @ResponseBody
     @RequestMapping(value="/pageQuery",method=RequestMethod.GET)
-    public ResponseEntity<EasyUIResult> pageQuerySorted(@RequestParam("page")Integer pageNum,@RequestParam("rows")Integer pageSize
+    public ResponseEntity<String> pageQuerySorted(@RequestParam("page")Integer pageNum,@RequestParam("rows")Integer pageSize
             ,@RequestParam(value="sort",required=false,defaultValue="updated")String sort,
-            @RequestParam(value="order",required=false,defaultValue="DESC")String order){
+            @RequestParam(value="order",required=false,defaultValue="DESC")String order,@RequestParam("callback_")String callback){
         try {
             if(pageNum<0 || pageSize<0){
                 //参数列表错误400
@@ -42,8 +52,12 @@ public class OrderController {
                 //资源转移404
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);            
             }
+            String json = MAPPER.writeValueAsString(result);
             //查询成功
-            return  ResponseEntity.status(HttpStatus.OK).body(result);
+            if(StringUtils.isNotBlank(json)){
+                return ResponseEntity.status(HttpStatus.OK).body(callback+"("+json+")");                
+            }
+            return ResponseEntity.ok(json);
         } catch (Exception e) {
             e.printStackTrace();
         }  

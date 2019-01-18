@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.github.abel533.entity.Example;
 import com.github.abel533.entity.Example.Criteria;
@@ -16,9 +17,16 @@ import com.github.pagehelper.PageInfo;
 import cn.itcast.microservice.pojo.BasePojo;
 import cn.itcast.microservice.util.ThreadLocalSimple;
 
-
 public abstract class BaseService<T extends BasePojo>
 {
+    /*private Mapper<T> mapper;
+  
+  public abstract Mapper getMapper();
+  
+  public BaseService() {
+      mapper = this.getMapper();
+  }*/
+    
     @Autowired
     private Mapper<T> mapper;
     
@@ -31,6 +39,7 @@ public abstract class BaseService<T extends BasePojo>
        //通过参数化类型对象调用方法-，获取真实的类型参数对象
        clazz = (Class<T>) parameterizedType.getActualTypeArguments()[0];
     }
+    
     
     /**
      * 有序的分页查询，如是无条件的分页查询record传入null即可

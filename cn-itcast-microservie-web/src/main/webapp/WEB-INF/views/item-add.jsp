@@ -36,7 +36,12 @@
 	        <tr>
 	            <td>订单状态:</td>
 	            <td>
-	                <input id="cc" class="easyui-combobox" name="status"  data-options="valueField:'id',textField:'text',url:'json/status.json'"></input>
+	                <select id="status" class="easyui-combobox" name="dept" style="width:200px;">
+					    <option value=0 selected="selected">未试教</option>
+					    <option value=1>正在试教</option>
+					    <option value=2>试教成功</option>
+					    <option value=3>试教失败</option>
+					</select>
 	            </td>
 	        </tr>
 	    </table>
@@ -48,12 +53,12 @@
 </div>
 <script type="text/javascript">
 	var orderItemEditor ;
-	var teacherAdditionalEditor ;
+	var orderAdditionalEditor ;
 	var teacherItemEditor ;
 	var teacherAdditionalEditor ;
 	$(function(){
 		orderItemEditor = TAOTAO.createEditor("#orderAddForm [name=orderItem]");
-		teacherAdditionalEditor = TAOTAO.createEditor("#orderAddForm [name=teacherAdditional]");
+		orderAdditionalEditor = TAOTAO.createEditor("#orderAddForm [name=orderAdditional]");
 		teacherItemEditor = TAOTAO.createEditor("#orderAddForm [name=teacherItem]");
 		teacherAdditionalEditor = TAOTAO.createEditor("#orderAddForm [name=teacherAdditional]");
 	});
@@ -65,7 +70,7 @@
 		}
 		//将编辑器中的内容同步到隐藏多行文本中
 		orderItemEditor.sync();
-		teacherAdditionalEditor.sync();
+		orderAdditionalEditor.sync();
 		teacherItemEditor.sync();
 		teacherAdditionalEditor.sync();
 		
@@ -92,10 +97,10 @@
 	}
 	
 	function clearForm(){
+		$("input[name='title']").val("").focus();
 		orderItemEditor.html('');
-		teacherAdditionalEditor.html('');
+		orderAdditionalEditor.html('');
 		teacherItemEditor.html('');
 		teacherAdditionalEditor.html('');
-		$("#itemAddForm [name=title]").val('');
 	}
 </script>

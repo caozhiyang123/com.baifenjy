@@ -5,12 +5,43 @@ spring:
   application:
     name: itcast-microservice-order
 # = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
-
-
-
-###########################################################################################
-###########################################################################################
-
+#数据库配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: MyNewPass
+    maxActive: 20
+    maxWait: 60000
+    maxIdle: 8
+    minIdle: 8
+    initialSize: 10
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: 
+      druid:
+        stat:
+          mergeSql: true
+          slowSqlMillis: 5000
+          
+          #自动创建表
+  jpa:
+      hibernate:
+  #      ddl-auto: create #ddl-auto:设为create表示每次都重写建表
+        ddl-auto: update # ddl-auto:设为update表示每次都不会重写建表
+  #      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      show-sql: true
+      database: MYSQL
+      databasePlatform: org.hibernate.dialect.MySQL5InnoDBDialect
+###########################################################################################          
 eureka:
   client:
     registerWithEureka: true #是否将自己注册到eureka服务中，本身就是所有无需注册
@@ -43,4 +74,13 @@ logging:
     root: info
 # org.springframework.web:DEBUG
   file: /log/log/order.log
+
+
+#配置MyBatis环境  别名扫描
+mybatis:
+#  type-aliases-package: cn.itcast.microservice.pojo
+#  config-locations:  classpath:mybatis/mybatis-config.xml
+
+#加载Mybatis核心配置文件
+#  mapper-locations: classpath:mapper/*Mapper.xml
 
