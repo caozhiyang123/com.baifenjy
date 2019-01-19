@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <table class="easyui-datagrid" id="itemList" title="订单列表" 
-       data-options="singleSelect:false,collapsible:true,pagination:true,toolbar:toolbar"><!-- ,url:'/order/pageQuery',method:'get',pageSize:30 -->
+       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/order/pageQuery',method:'get',pageSize:30,toolbar:toolbar">
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
@@ -20,7 +20,7 @@
 </div>
 <script>
 
-   $(function(){
+   /* $(function(){
     	$.ajax({
             type:"GET",
             url:"http://127.0.0.1:6870/order/pageQuery?callback_=order_dataServer", //访问的链接
@@ -37,7 +37,7 @@
 
     function order_dataServer(data){
     	console.info(data.t+","+data.r);
-    }
+    } */
     
     function getSelectionsIds(){
     	var itemList = $("#itemList");
@@ -86,7 +86,7 @@
         	$.messager.confirm('确认','确定删除ID为 '+ids+' 的订单吗？',function(r){
         	    if (r){
         	    	var params = {"ids":ids,"_method":"DELETE"};
-                	$.post("http://127.0.0.1:6870/order/delete",params, function(data,status,xhr){
+                	$.post("/order/delete",params, function(data,status,xhr){
             			if(xhr.status == 204){
             				$.messager.alert('提示','删除商品成功!',undefined,function(){
             					$("#itemList").datagrid("reload");

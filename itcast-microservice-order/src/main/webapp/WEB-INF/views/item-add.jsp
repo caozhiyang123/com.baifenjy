@@ -78,7 +78,7 @@
 		//提交到后台的RESTful
 		$.ajax({
 		   type: "POST",
-		   url: "http://127.0.0.1:6870/order/insert",
+		   url: "/order/insert",
 		   data: $("#orderAddForm").serialize(),
 		   statusCode : {
 			   201 : function(){

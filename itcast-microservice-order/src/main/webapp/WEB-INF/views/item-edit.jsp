@@ -93,7 +93,7 @@
 		//提交到后台的RESTful
 		$.ajax({
 		   type: "PUT",
-		   url: "http://127.0.0.1:6870/order/edit",
+		   url: "/order/edit",
 		   data: $("#itemeEditForm").serialize(),
 		   statusCode : {
 			   204 : function(){
