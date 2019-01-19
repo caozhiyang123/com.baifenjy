@@ -33,7 +33,7 @@ public class OrderController {
     
     @ResponseBody
     @RequestMapping(value="/pageQuery",method=RequestMethod.GET)
-    public ResponseEntity<String> pageQuerySorted(@RequestParam("page")Integer pageNum,@RequestParam("rows")Integer pageSize
+    public ResponseEntity<EasyUIResult> pageQuerySorted(@RequestParam("page")Integer pageNum,@RequestParam("rows")Integer pageSize
             ,@RequestParam(value="sort",required=false,defaultValue="updated")String sort,
             @RequestParam(value="order",required=false,defaultValue="DESC")String order,@RequestParam("callback_")String callback){
         try {
@@ -52,12 +52,12 @@ public class OrderController {
                 //资源转移404
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);            
             }
-            String json = MAPPER.writeValueAsString(result);
+            /*String json = MAPPER.writeValueAsString(result);
             //查询成功
             if(StringUtils.isNotBlank(json)){
                 return ResponseEntity.status(HttpStatus.OK).body(callback+"("+json+")");                
-            }
-            return ResponseEntity.ok(json);
+            }*/
+            return ResponseEntity.ok(result);
         } catch (Exception e) {
             e.printStackTrace();
         }  
