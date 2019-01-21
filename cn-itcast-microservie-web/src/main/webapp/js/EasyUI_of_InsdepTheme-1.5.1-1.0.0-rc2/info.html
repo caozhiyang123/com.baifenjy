@@ -127,7 +127,8 @@
 											text : 'UTC Every one minute refresh data'
 										},
 										xAxis : {
-											type : 'spin count'
+											type : 'value',
+											name : 'spin count'
 										},
 										yAxis : {
 											title : {
@@ -210,7 +211,7 @@
 											} ]
 										},
 										tooltip : {
-											valueSuffix : ' m/s'
+											valueSuffix : '%'
 										},
 										plotOptions : {
 											spline : {
@@ -224,13 +225,11 @@
 													enabled : false
 												},
 												pointInterval : 3600000, // one hour
-												pointStart : Date.UTC(2009, 9, 6,
-														0, 0, 0)
+												pointStart : 0
 											}
 										},
-										series : [
-												{
-													name : 'Hestavollane',
+										series : [{
+													name : 'RTP',
 													data : [ 4.3, 5.1, 4.3, 5.2,
 															5.4, 4.7, 3.5, 4.1,
 															5.6, 7.4, 6.9, 7.1,
@@ -244,9 +243,8 @@
 															2.1, 1.9, 2.8, 2.9,
 															1.3, 4.4, 4.2, 3.0, 3.0 ]
 	
-												},
-												{
-													name : 'Voll',
+												},{
+													name : 'BaseRTP',
 													data : [ 0.0, 0.0, 0.0, 0.0,
 															0.0, 0.0, 0.0, 0.0,
 															0.1, 0.0, 0.3, 0.0,
@@ -260,7 +258,22 @@
 															4.8, 5.0, 3.2, 2.0,
 															0.9, 0.4, 0.3, 0.5, 0.4 ]
 	
-												} ],
+												},{
+                                                    name : 'EB RTP',
+                                                    data : [0.7, 2.9, 4.1, 2.6,
+	                                                        3.7, 3.9, 1.7, 2.3,
+	                                                        3.0, 3.3, 4.8, 5.0,
+	                                                        4.8, 5.0, 3.2, 2.0,
+                                                            0.0, 0.0, 0.0, 0.0,
+                                                            0.0, 0.0, 0.0, 0.0,
+                                                            0.0, 0.6, 1.2, 1.7,
+                                                            0.7, 2.9, 4.1, 2.6,
+                                                            3.7, 3.9, 1.7, 2.3,
+                                                            3.0, 3.3, 4.8, 5.0,
+                                                            4.8, 5.0, 3.2, 2.0,
+                                                            0.9, 0.4, 0.3, 0.5, 0.4 ]
+    
+                                                }],
 										navigation : {
 											menuItemStyle : {
 												fontSize : '10px'
@@ -292,17 +305,17 @@
 											}
 										},
 										title : {
-											text : 'Wind speed during two days'
+											text : 'ebPrice'
 										},
 										subtitle : {
-											text : 'October 6th and 7th 2009 at two locations in Vik i Sogn, Norway'
+											text : 'UTC Every one minute refresh data'
 										},
 										xAxis : {
 											type : 'datetime'
 										},
 										yAxis : {
 											title : {
-												text : 'Wind speed (m/s)'
+												text : 'percent (%)'
 											},
 											min : 0,
 											minorGridLineWidth : 0,
@@ -381,7 +394,7 @@
 											} ]
 										},
 										tooltip : {
-											valueSuffix : ' m/s'
+											valueSuffix : ' %'
 										},
 										plotOptions : {
 											spline : {
@@ -395,13 +408,11 @@
 													enabled : false
 												},
 												pointInterval : 3600000, // one hour
-												pointStart : Date.UTC(2009, 9, 6,
-														0, 0, 0)
+												pointStart : 0
 											}
 										},
-										series : [
-												{
-													name : 'Hestavollane',
+										series : [{
+													name : 'ebPrice',
 													data : [ 4.3, 5.1, 4.3, 5.2,
 															10.9, 10.4, 10.9, 12.4,
 	                                                        12.1, 9.5, 7.5, 7.1,
@@ -416,23 +427,7 @@
 															2.1, 1.9, 2.8, 2.9,
 															1.3, 4.4, 4.2, 3.0, 3.0 ]
 	
-												},
-												{
-													name : 'Voll',
-													data : [ 0.0, 0.0, 0.0, 0.0,
-															0.7, 2.9, 4.1, 2.6,
-	                                                        3.7, 3.9, 1.7, 2.3,
-	                                                        3.0, 3.3, 4.8, 5.0,
-	                                                        4.8, 5.0, 3.2, 2.0,
-															0.0, 0.0, 0.0, 0.0,
-															0.0, 0.6, 1.2, 1.7,
-															0.7, 2.9, 4.1, 2.6,
-															3.7, 3.9, 1.7, 2.3,
-															3.0, 3.3, 4.8, 5.0,
-															4.8, 5.0, 3.2, 2.0,
-															0.9, 0.4, 0.3, 0.5, 0.4 ]
-	
-												} ],
+												}],
 										navigation : {
 											menuItemStyle : {
 												fontSize : '10px'
@@ -464,17 +459,17 @@
 											}
 										},
 										title : {
-											text : 'Wind speed during two days'
+											text : 'ebRoundPer'
 										},
 										subtitle : {
-											text : 'October 6th and 7th 2009 at two locations in Vik i Sogn, Norway'
+											text : 'UTC Every one minute refresh data'
 										},
 										xAxis : {
-											type : 'datetime'
+											type : 'value'
 										},
 										yAxis : {
 											title : {
-												text : 'Wind speed (m/s)'
+												text : 'percent (%)'
 											},
 											min : 0,
 											minorGridLineWidth : 0,
@@ -553,7 +548,7 @@
 											} ]
 										},
 										tooltip : {
-											valueSuffix : ' m/s'
+											valueSuffix : ' %'
 										},
 										plotOptions : {
 											spline : {
@@ -567,13 +562,11 @@
 													enabled : false
 												},
 												pointInterval : 3600000, // one hour
-												pointStart : Date.UTC(2009, 9, 6,
-														0, 0, 0)
+												pointStart : 0
 											}
 										},
-										series : [
-												{
-													name : 'Hestavollane',
+										series : [{
+													name : 'ebRoundPer',
 													data : [ 4.3, 5.1, 4.3, 5.2,
 															10.9, 10.4, 10.9, 12.4,
 	                                                        12.1, 9.5, 7.5, 7.1,
@@ -587,23 +580,7 @@
 															2.1, 1.9, 2.8, 2.9,
 															1.3, 4.4, 4.2, 3.0, 3.0 ]
 	
-												},
-												{
-													name : 'Voll',
-													data : [ 0.0, 0.0, 0.0, 0.0,
-															3.7, 3.9, 1.7, 2.3,
-	                                                        3.0, 3.3, 4.8, 5.0,
-	                                                        4.8, 5.0, 3.2, 2.0,
-															0.0, 0.0, 0.0, 0.0,
-															0.0, 0.0, 0.0, 0.0,
-															0.0, 0.6, 1.2, 1.7,
-															0.7, 2.9, 4.1, 2.6,
-															3.7, 3.9, 1.7, 2.3,
-															3.0, 3.3, 4.8, 5.0,
-															4.8, 5.0, 3.2, 2.0,
-															0.9, 0.4, 0.3, 0.5, 0.4 ]
-	
-												} ],
+												}],
 										navigation : {
 											menuItemStyle : {
 												fontSize : '10px'
