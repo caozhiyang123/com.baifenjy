@@ -13,11 +13,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class EasyUIResult implements Serializable{
     
     //序列化为json数据时以t作为k
-    @JsonProperty("t")
+//    @JsonProperty("t")
 	private Long total;
     
     //序列化为json数据时以r作为k
-    @JsonProperty("r")
+//    @JsonProperty("r")
 	private List<?> rows;
     
 	public Long getTotal() {

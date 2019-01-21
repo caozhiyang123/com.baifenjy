@@ -10,6 +10,41 @@ spring:
       suffix: .jsp
 # = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
 
+#数据库配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: MyNewPass
+    maxActive: 20
+    maxWait: 60000
+    maxIdle: 8
+    minIdle: 8
+    initialSize: 10
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: 
+      druid:
+        stat:
+          mergeSql: true
+          slowSqlMillis: 5000
+    
+  jpa:
+    hibernate:
+#      ddl-auto: create #ddl-auto:设为create表示每次都重写建表
+      ddl-auto: update # ddl-auto:设为update表示每次都不会重写建表
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    show-sql: true
+    database: MYSQL
+    databasePlatform: org.hibernate.dialect.MySQL5InnoDBDialect
 
 ###########################################################################################
 

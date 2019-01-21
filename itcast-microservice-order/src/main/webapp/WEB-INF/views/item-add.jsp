@@ -36,7 +36,7 @@
 	        <tr>
 	            <td>订单状态:</td>
 	            <td>
-	                <select id="status" class="easyui-combobox" name="dept" style="width:200px;">
+	                <select id="status" class="easyui-combobox" name="status" style="width:200px;">
 					    <option value=0 selected="selected">未试教</option>
 					    <option value=1>正在试教</option>
 					    <option value=2>试教成功</option>
@@ -48,7 +48,7 @@
 	</form>
 	<div style="padding:5px">
 	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
-	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
+	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a><!-- type="reset" -->
 	</div>
 </div>
 <script type="text/javascript">
@@ -84,7 +84,10 @@
 			   201 : function(){
 				   $.messager.alert('提示','新增商品成功!');
 				   $('#orderAddForm').form('reset');
-					itemAddEditor.html('');
+				   orderItemEditor.text('');
+				   orderAdditionalEditor.text('');
+				   teacherItemEditor.text('');
+				   teacherAdditionalEditor.text('');
 			   },
 			   400 : function(){
 				   $.messager.alert('提示','参数有误!');
@@ -97,10 +100,10 @@
 	}
 	
 	function clearForm(){
-		$("input[name='title']").val("").focus();
-		orderItemEditor.html('');
-		orderAdditionalEditor.html('');
-		teacherItemEditor.html('');
-		teacherAdditionalEditor.html('');
+		$('#orderAddForm').form('clear');
+		orderItemEditor.text('');
+        orderAdditionalEditor.text('');
+        teacherItemEditor.text('');
+        teacherAdditionalEditor.text('');
 	}
 </script>

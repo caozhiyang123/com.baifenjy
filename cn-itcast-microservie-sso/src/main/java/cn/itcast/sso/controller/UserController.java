@@ -134,7 +134,6 @@ public class UserController {
             // 登录成功，把token写入cookie中
             CookieUtils.setCookie(request, response, COOKIE_NAME, token);
             // 返回结果
-            System.out.println(token);
             return Result.ok(token);
         } catch (Exception e) {
             e.printStackTrace();

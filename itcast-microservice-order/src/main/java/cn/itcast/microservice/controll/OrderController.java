@@ -35,7 +35,7 @@ public class OrderController {
     @RequestMapping(value="/pageQuery",method=RequestMethod.GET)
     public ResponseEntity<EasyUIResult> pageQuerySorted(@RequestParam("page")Integer pageNum,@RequestParam("rows")Integer pageSize
             ,@RequestParam(value="sort",required=false,defaultValue="updated")String sort,
-            @RequestParam(value="order",required=false,defaultValue="DESC")String order,@RequestParam("callback_")String callback){
+            @RequestParam(value="order",required=false,defaultValue="DESC")String order,@RequestParam(value="callback_",required=false,defaultValue="")String callback){
         try {
             if(pageNum<0 || pageSize<0){
                 //参数列表错误400

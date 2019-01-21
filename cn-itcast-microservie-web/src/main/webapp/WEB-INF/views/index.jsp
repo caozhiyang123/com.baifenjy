@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>上海力霆教育管理系统</title>
+<title>Data analysis system</title>
 <jsp:include page="/commons/common-js.jsp"></jsp:include>
 <style type="text/css">
 	.content {
@@ -27,21 +27,12 @@
                 </div>
             </div>
         </div>
-		 <div data-options="region:'west',title:'菜单',split:true,border:false" style="width:200px; padding:10px 10px;">
+		 <div data-options="region:'west',title:'menu',split:true,border:false" style="width:200px; padding:10px 10px;">
 	    	<ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
 	         	<li>
-	         		<span>订单管理</span>
+	         		<span>Data analysis</span>
 	         		<ul>
-		         		<li data-options="attributes:{'url':'/page/item-add'}">新增订单</li>
-		         		<li data-options="attributes:{'url':'/page/item-list'}">查询订单</li>
-		         		<li data-options="attributes:{'url':'/page/item-param-list'}">订单参数参数</li>
-		         	</ul>
-	         	</li>
-	         	<li>
-	         		<span>网站内容管理</span>
-	         		<ul>
-		         		<li data-options="attributes:{'url':'/page/content-category'}">内容分类管理</li>
-		         		<li data-options="attributes:{'url':'/page/content'}">内容管理</li>
+		         		<li data-options="attributes:{'url':'/page/rtp-data'}">RTP</li>
 		         	</ul>
 	         	</li>
 	         </ul>

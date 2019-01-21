@@ -39,7 +39,7 @@
 	        <tr>
 	            <td>订单状态:</td>
 	            <td>
-	                <select id="status" class="easyui-combobox" name="dept" style="width:200px;">
+	                <select id="status" class="easyui-combobox" name="status" style="width:200px;">
                         <option value=0 selected="selected">未试教</option>
                         <option value=1>正在试教</option>
                         <option value=2>试教成功</option>
@@ -72,11 +72,21 @@
 	var teacherItemEditor ;
 	var teacherAdditionalEditor ;
 	$(function(){
-	    orderItemEditor = TAOTAO.createEditor("#orderAddForm [name=orderItem]");
-	    orderAdditionalEditor = TAOTAO.createEditor("#orderAddForm [name=orderAdditional]");
-	    teacherItemEditor = TAOTAO.createEditor("#orderAddForm [name=teacherItem]");
-	    teacherAdditionalEditor = TAOTAO.createEditor("#orderAddForm [name=teacherAdditional]");
+	    orderItemEditor = TAOTAO.createEditor("#itemeEditForm [name=orderItem]");
+	    orderAdditionalEditor = TAOTAO.createEditor("#itemeEditForm [name=orderAdditional]");
+	    teacherItemEditor = TAOTAO.createEditor("#itemeEditForm [name=teacherItem]");
+	    teacherAdditionalEditor = TAOTAO.createEditor("#itemeEditForm [name=teacherAdditional]");
+	    
+	    setTimeout("show()",2000); //设置页面加载后1秒显示内容层
 	});
+	
+	function show(){
+        orderItemEditor.text($("textarea[name='orderItem']").val());
+        orderAdditionalEditor.text($("textarea[name='orderAdditional']").val());
+        teacherItemEditor.text($("textarea[name='teacherItem']").val());
+        teacherAdditionalEditor.text($("textarea[name='teacherAdditional']").val());
+	}
+	
 	
 	function submitForm(){
 		if(!$('#itemeEditForm').form('validate')){
@@ -110,5 +120,7 @@
 			   }
 		   }
 		});
+		
+		
 	}
 </script>
