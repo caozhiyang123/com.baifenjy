@@ -100,7 +100,45 @@
 			</dl>
 		</div>
 	</div>
-	
+	<div>
+   <div style="font-family: monospace; white-space: pre; background-color: rgb(240, 240, 240);">
+       <span style="display: inline-block;margin:0;padding:0;float:left;">
+	   	   from time:
+		　　<input type="text" id="fromTime"  data-options="formatter:ww3,parser:w3,required:true" class="easyui-datetimebox" style="width: 280px;">
+	   </span>
+	   <span style="display: inline-block;margin:0;padding:0;float:left;">
+		   to time:
+	        　　      <input type="text" id="toTime"  data-options="formatter:ww3,parser:w3,required:true" class="easyui-datetimebox" style="width: 280px;">
+       </span>
+	</div>
+   <script type="text/javascript">
+	    function ww3(date){  
+	        var Y = date.getFullYear();  
+	        var M = date.getMonth()+1;  
+	        var D = date.getDate();  
+	        var h = date.getHours();
+	        var m = date.getMinutes();
+	        var s = date.getSeconds();
+	        var ms = date.getMilliseconds();
+	        var str = Y+'-'+(M<10?('0'+M):M)+'-'+(D<10?('0'+D):D)+' '+(h<10?('0'+h):h)+":"+(m<10?('0'+m):m)+":"+(s<10?('0'+s):s)+":"+(ms<10?('0'+ms):ms);  
+	        return str;  
+	    }  
+	    function w3(s){  
+	        if (!s) return new Date();  //2019-01-22 09:57:51:394
+	        var y = s.substring(0,4);  
+	        var m =s.substring(5,7);  
+	        var d = s.substring(8,10);  
+	        var h = s.substring(11,13);  
+	        var min = s.substring(14,16);  
+	        var sec = s.substring(17,19);
+	        if (!isNaN(y) && !isNaN(m) && !isNaN(d) && !isNaN(h) && !isNaN(min) && !isNaN(sec)){  
+	            return new Date(y,m-1,d,h,min,sec);  
+	        } else {  
+	            return new Date();  
+	        }  
+	    }
+	</script>
+	</div>
 	<div id="user-info-more"
 		class="easyui-tabs theme-tab-blue-line theme-tab-body-unborder"
 		data-options="tools:'#tab-tools',fit:true">
@@ -224,7 +262,7 @@
 												marker : {
 													enabled : false
 												},
-												pointInterval : 3600000, // one hour
+												pointInterval : 2000,
 												pointStart : 0
 											}
 										},
@@ -407,7 +445,7 @@
 												marker : {
 													enabled : false
 												},
-												pointInterval : 3600000, // one hour
+												pointInterval : 2000,
 												pointStart : 0
 											}
 										},
@@ -561,7 +599,7 @@
 												marker : {
 													enabled : false
 												},
-												pointInterval : 3600000, // one hour
+												pointInterval : 2000,
 												pointStart : 0
 											}
 										},
