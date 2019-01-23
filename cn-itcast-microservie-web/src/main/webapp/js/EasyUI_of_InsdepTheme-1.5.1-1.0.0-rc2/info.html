@@ -281,48 +281,15 @@
 										},
 										series : [{
 													name : 'RTP',
-													data : []/*  4.3, 5.1, 4.3, 5.2,
-															5.4, 4.7, 3.5, 4.1,
-															5.6, 7.4, 6.9, 7.1,
-															7.9, 7.9, 7.5, 6.7,
-															7.7, 7.7, 7.4, 7.0,
-															7.1, 5.8, 5.9, 7.4,
-															8.2, 8.5, 9.4, 8.1,
-															10.9, 10.4, 10.9, 12.4,
-															12.1, 9.5, 7.5, 7.1,
-															7.5, 8.1, 6.8, 3.4,
-															2.1, 1.9, 2.8, 2.9,
-															1.3, 4.4, 4.2, 3.0, 3.0  */
+													data : []
 	
 												},{
 													name : 'BaseRTP',
-													data : []/*  0.0, 0.0, 0.0, 0.0,
-		                                                    0.0, 0.0, 0.0, 0.0,
-		                                                    0.1, 0.0, 0.3, 0.0,
-		                                                    0.0, 0.4, 0.0, 0.1,
-		                                                    0.0, 0.0, 0.0, 0.0,
-		                                                    0.0, 0.0, 0.0, 0.0,
-		                                                    0.0, 0.6, 1.2, 1.7,
-		                                                    0.7, 2.9, 4.1, 2.6,
-		                                                    3.7, 3.9, 1.7, 2.3,
-		                                                    3.0, 3.3, 4.8, 5.0,
-		                                                    4.8, 5.0, 3.2, 2.0,
-		                                                    0.9, 0.4, 0.3, 0.5, 0.4  */
+													data : []
 	
 												},{
                                                     name : 'EB RTP',
-                                                    data : []/* 0.7, 2.9, 4.1, 2.6,
-		                                                    3.7, 3.9, 1.7, 2.3,
-		                                                    3.0, 3.3, 4.8, 5.0,
-		                                                    4.8, 5.0, 3.2, 2.0,
-		                                                    0.0, 0.0, 0.0, 0.0,
-		                                                    0.0, 0.0, 0.0, 0.0,
-		                                                    0.0, 0.6, 1.2, 1.7,
-		                                                    0.7, 2.9, 4.1, 2.6,
-		                                                    3.7, 3.9, 1.7, 2.3,
-		                                                    3.0, 3.3, 4.8, 5.0,
-		                                                    4.8, 5.0, 3.2, 2.0,
-		                                                    0.9, 0.4, 0.3, 0.5, 0.4 */
+                                                    data : []
     
                                                 }],
 										navigation : {
@@ -347,15 +314,27 @@
                 var base_rtp_data = new Array();
                 var eb_rtp_data = new Array();
                 
-				
+                var chart = null;
 				$(function(){
-					setInterval(refreshData, 500);
+				    chart = $('#RTP_charts').highcharts();
+				    //不保证任务线程先后的执行顺序
+					/* setInterval(refreshData, 500);  */
+					
+					//保证任务线程先后的执行顺序  js为了保证任务的先后执行顺序会存放到任务队列
+					var modifyValue = function (){
+                       	refreshData();
+                        setTimeout(function(){
+                        	modifyValue();
+                        }, 500);
+                    };
+                    
+                    modifyValue();
 				});
 				
 
-                function refreshData(){
-                	var chart = $('#RTP_charts').highcharts();
-                	
+				var updatePoint = true;
+
+               	function refreshData(){
                 	item_rtp  =  Math.random().toFixed(1);
                     item_base_rtp  =  Math.random().toFixed(1);
                     item_eb_rtp  =  Math.random().toFixed(1);
@@ -364,15 +343,16 @@
                         console.info(rtp_data.shift());
                         console.info(base_rtp_data.shift());
                         console.info(eb_rtp_data.shift());
+                        updatePoint = false;
                     }
                     rtp_data.push(parseFloat(item_rtp));
                     base_rtp_data.push(parseFloat(item_base_rtp));
                     eb_rtp_data.push(parseFloat(item_eb_rtp));
                     
                     // 第2个参数表示是否重绘，第3个参数表示是否启用动画，第4个参数表示是否更新数据点[数组长度一样时建议false]
-                    chart.series[0].setData(rtp_data,true,true,true);
-                    chart.series[1].setData(base_rtp_data,true,true,true);
-                    chart.series[2].setData(eb_rtp_data,true,true,true); 
+                    chart.series[0].setData(rtp_data,true,true,updatePoint);
+                    chart.series[1].setData(base_rtp_data,true,true,updatePoint);
+                    chart.series[2].setData(eb_rtp_data,true,true,updatePoint); 
                      
                 }
                 
@@ -402,11 +382,11 @@
 											text : 'UTC Every one minute refresh data'
 										},
 										xAxis : {
-											type : 'datetime'
+											type : 'value'
 										},
 										yAxis : {
 											title : {
-												text : 'percent (%)'
+												text : 'price ($)'
 											},
 											min : 0,
 											minorGridLineWidth : 0,
@@ -485,7 +465,7 @@
 											} ]
 										},
 										tooltip : {
-											valueSuffix : ' %'
+											valueSuffix : ' $'
 										},
 										plotOptions : {
 											spline : {
@@ -504,19 +484,7 @@
 										},
 										series : [{
 													name : 'ebPrice',
-													data : [ 4.3, 5.1, 4.3, 5.2,
-															10.9, 10.4, 10.9, 12.4,
-	                                                        12.1, 9.5, 7.5, 7.1,
-	                                                        7.5, 8.1, 6.8, 3.4,
-	                                                        2.1, 1.9, 2.8, 2.9,
-															7.7, 7.7, 7.4, 7.0,
-															7.1, 5.8, 5.9, 7.4,
-															8.2, 8.5, 9.4, 8.1,
-															10.9, 10.4, 10.9, 12.4,
-															12.1, 9.5, 7.5, 7.1,
-															7.5, 8.1, 6.8, 3.4,
-															2.1, 1.9, 2.8, 2.9,
-															1.3, 4.4, 4.2, 3.0, 3.0 ]
+													data : []
 	
 												}],
 										navigation : {
@@ -531,6 +499,45 @@
 					var chart = $('#ebPrice_charts').highcharts();
 					chart.reflow();
 				});
+				
+				/* - - - - sumlator - - - - */
+                var item_ebPrice = 0;
+                var ebPrice_data = new Array();
+                
+                var chart = null;
+                $(function(){
+                    chart = $('#ebPrice_charts').highcharts();
+                    //不保证任务线程先后的执行顺序
+                    /* setInterval(refreshData, 500);  */
+                    
+                    //保证任务线程先后的执行顺序  js为了保证任务的先后执行顺序会存放到任务队列
+                    var modifyValue = function (){
+                        refreshData();
+                        setTimeout(function(){
+                            modifyValue();
+                        }, 500);
+                    };
+                    
+                    modifyValue();
+                });
+                
+
+                var updatePoint = true;
+
+                function refreshData(){
+                	item_ebPrice  =  (Math.random()*6000+1).toFixed(0);
+                    if(ebPrice_data.length == 100){
+                        console.info(ebPrice_data.shift());
+                        updatePoint = false;
+                    }
+                    ebPrice_data.push(parseFloat(item_ebPrice));
+                    
+                    // 第2个参数表示是否重绘，第3个参数表示是否启用动画，第4个参数表示是否更新数据点[数组长度一样时建议false]
+                    chart.series[0].setData(ebPrice_data,true,true,updatePoint);
+                     
+                }
+                
+                /* - - - - sumlator - - - - */
 			</script>
 	
 		</div>
@@ -553,7 +560,7 @@
 											text : 'ebRoundPer'
 										},
 										subtitle : {
-											text : 'UTC Every one minute refresh data'
+											text : 'UTC Every one minute refresh data[ebRound / spinCount]'
 										},
 										xAxis : {
 											type : 'value'
@@ -658,18 +665,7 @@
 										},
 										series : [{
 													name : 'ebRoundPer',
-													data : [ 4.3, 5.1, 4.3, 5.2,
-															10.9, 10.4, 10.9, 12.4,
-	                                                        12.1, 9.5, 7.5, 7.1,
-	                                                        7.5, 8.1, 6.8, 3.4,
-	                                                        2.1, 1.9, 2.8, 2.9,
-															7.1, 5.8, 5.9, 7.4,
-															8.2, 8.5, 9.4, 8.1,
-															10.9, 10.4, 10.9, 12.4,
-															12.1, 9.5, 7.5, 7.1,
-															7.5, 8.1, 6.8, 3.4,
-															2.1, 1.9, 2.8, 2.9,
-															1.3, 4.4, 4.2, 3.0, 3.0 ]
+													data : []
 	
 												}],
 										navigation : {
@@ -684,8 +680,45 @@
 					var chart = $('#ebRoundPer_charts').highcharts();
 					chart.reflow();
 				});
+				
+				/* - - - - sumlator - - - - */
+                var item_ebRoundPer = 0;
+                var ebPrice_data = new Array();
+                
+                var chart = null;
+                $(function(){
+                    chart = $('#ebRoundPer_charts').highcharts();
+                    //不保证任务线程先后的执行顺序
+                    /* setInterval(refreshData, 500);  */
+                    
+                    //保证任务线程先后的执行顺序  js为了保证任务的先后执行顺序会存放到任务队列
+                    var modifyValue = function (){
+                        refreshData();
+                        setTimeout(function(){
+                            modifyValue();
+                        }, 500);
+                    };
+                    
+                    modifyValue();
+                });
+                
+
+                var updatePoint = true;
+
+                function refreshData(){
+                	item_ebRoundPer  =  (Math.random()*10+1).toFixed(2);
+                    if(ebPrice_data.length == 100){
+                        console.info(ebPrice_data.shift());
+                        updatePoint = false;
+                    }
+                    ebPrice_data.push(parseFloat(item_ebRoundPer));
+                    
+                    // 第2个参数表示是否重绘，第3个参数表示是否启用动画，第4个参数表示是否更新数据点[数组长度一样时建议false]
+                    chart.series[0].setData(ebPrice_data,true,true,updatePoint);
+                }
+                
+                /* - - - - sumlator - - - - */
 			</script>
-	
 		</div>
 	</div>
 	<div id="tab-tools">
