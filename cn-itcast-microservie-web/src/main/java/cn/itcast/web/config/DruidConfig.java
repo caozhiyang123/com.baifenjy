@@ -1,9 +1,14 @@
 package cn.itcast.web.config;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -18,6 +23,8 @@ import com.alibaba.druid.support.http.WebStatFilter;
 
 @Configuration
 public class DruidConfig {
+    private final static Logger logger = LoggerFactory.getLogger(DruidConfig.class);
+    
     @Value("${spring.datasource.url}")
     private String dbUrl;
 
@@ -128,5 +135,44 @@ public class DruidConfig {
         // 添加不需要忽略的格式信息.
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
         return filterRegistrationBean;
+    }
+    
+    public static void release(Connection conn, PreparedStatement ps, ResultSet rs)
+    {
+        if (rs != null)
+        {
+            try
+            {
+                rs.close();
+            }
+            catch (Exception e)
+            {
+                logger.error("", e);
+            }
+            rs = null;
+        }
+        if (ps != null)
+        {
+            try
+            {
+                ps.close();
+            }
+            catch (Exception e)
+            {
+                logger.error("", e);
+            }
+        }
+
+        if (conn != null)
+        {
+            try
+            {
+                conn.close();
+            }
+            catch (Exception e)
+            {
+                logger.error("", e);
+            }
+        }
     }
 }

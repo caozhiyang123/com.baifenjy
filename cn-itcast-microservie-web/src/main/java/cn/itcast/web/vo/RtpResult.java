@@ -6,10 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class RtpResult implements Serializable
-{
+{/*
     private static final long serialVersionUID = 1L;
-    
-    private static final int INTERVAL_COUNT = 2000; 
     
     private static DecimalFormat df = new DecimalFormat("0.000");
     
@@ -177,4 +175,4 @@ public class RtpResult implements Serializable
     
     
     
-}
+*/}

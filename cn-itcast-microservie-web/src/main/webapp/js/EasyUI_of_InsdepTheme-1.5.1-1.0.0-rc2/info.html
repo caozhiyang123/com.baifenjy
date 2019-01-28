@@ -17,12 +17,12 @@
 				$(function() {
 					var dflt = {
 						min : 0,
-						max : 100,
+						max : 1000,
 						donut : true,
 						gaugeWidthScale : 0.6,
 						counter : true,
 						hideInnerShadow : true,
-						symbol: "%"
+						symbol: "‰"
 					}
 					gg1 = new JustGage({
 						id : 'totalRTP',
@@ -56,13 +56,13 @@
 	
 				});
 				
-				 var num1 = 50;
-				 var num2 = 60;
-				 var num3 = 70;
-				 var num4 = 80;
-				 var num5 = 90;
-				 var num6 = 99;
-				 var num7 = 10;
+				 var num1 = 500;
+				 var num2 = 600;
+				 var num3 = 700;
+				 var num4 = 800;
+				 var num5 = 900;
+				 var num6 = 990;
+				 var num7 = 100;
 				 var modifyValue = function (){
 			            gg1.refresh(num1);
 			            gg2.refresh(num2);
@@ -78,16 +78,16 @@
 			            num5++;
 			            num6++;
 			            num7++;
-			            if(num1 > 100 ||num2 > 100 || num3 > 100 ||num4 > 100 ||num5 > 100 || num6 > 100 ||num7 > 100){
-			            	num1=12;
-			            	num2=22;
-			            	num3=33;
-			            	num4=44;
-			            	num5=55;
-			            	num6=66;
-			            	num7=77;
+			            if(num1 > 1000 ||num2 > 1000 || num3 > 1000 ||num4 > 1000 ||num5 > 1000 || num6 > 1000 ||num7 > 1000){
+			            	num1=120;
+			            	num2=202;
+			            	num3=303;
+			            	num4=404;
+			            	num5=505;
+			            	num6=660;
+			            	num7=770;
 			            }
-			            setTimeout("modifyValue()", 3000);
+			            setTimeout("modifyValue()", 500);
 			        };
 			        
 			     modifyValue();
@@ -314,15 +314,15 @@
                 var base_rtp_data = new Array();
                 var eb_rtp_data = new Array();
                 
-                var chart = null;
+                var rtpChart = null;
 				$(function(){
-				    chart = $('#RTP_charts').highcharts();
+					rtpChart = $('#RTP_charts').highcharts();
 				    //不保证任务线程先后的执行顺序
 					/* setInterval(refreshData, 500);  */
 					
 					//保证任务线程先后的执行顺序  js为了保证任务的先后执行顺序会存放到任务队列
 					var modifyValue = function (){
-                       	refreshData();
+						refreshRtpData();
                         setTimeout(function(){
                         	modifyValue();
                         }, 500);
@@ -334,15 +334,14 @@
 
 				var updatePoint = true;
 
-               	function refreshData(){
+               	function refreshRtpData(){
                 	item_rtp  =  Math.random().toFixed(1);
                     item_base_rtp  =  Math.random().toFixed(1);
                     item_eb_rtp  =  Math.random().toFixed(1);
-                    console.info(rtp_data.length +","+base_rtp_data.length+","+eb_rtp_data.length);
                     if(rtp_data.length == 100 || base_rtp_data.length == 100 || eb_rtp_data.length == 100){
-                        console.info(rtp_data.shift());
-                        console.info(base_rtp_data.shift());
-                        console.info(eb_rtp_data.shift());
+                        rtp_data.shift();
+                        base_rtp_data.shift();
+                        eb_rtp_data.shift();
                         updatePoint = false;
                     }
                     rtp_data.push(parseFloat(item_rtp));
@@ -350,9 +349,9 @@
                     eb_rtp_data.push(parseFloat(item_eb_rtp));
                     
                     // 第2个参数表示是否重绘，第3个参数表示是否启用动画，第4个参数表示是否更新数据点[数组长度一样时建议false]
-                    chart.series[0].setData(rtp_data,true,true,updatePoint);
-                    chart.series[1].setData(base_rtp_data,true,true,updatePoint);
-                    chart.series[2].setData(eb_rtp_data,true,true,updatePoint); 
+                    rtpChart.series[0].setData(rtp_data,true,true,updatePoint);
+                    rtpChart.series[1].setData(base_rtp_data,true,true,updatePoint);
+                    rtpChart.series[2].setData(eb_rtp_data,true,true,updatePoint); 
                      
                 }
                 
@@ -504,15 +503,15 @@
                 var item_ebPrice = 0;
                 var ebPrice_data = new Array();
                 
-                var chart = null;
+                var ebPriceChart = null;
                 $(function(){
-                    chart = $('#ebPrice_charts').highcharts();
+                	ebPriceChart = $('#ebPrice_charts').highcharts();
                     //不保证任务线程先后的执行顺序
                     /* setInterval(refreshData, 500);  */
                     
                     //保证任务线程先后的执行顺序  js为了保证任务的先后执行顺序会存放到任务队列
                     var modifyValue = function (){
-                        refreshData();
+                    	refreshEbPriceData();
                         setTimeout(function(){
                             modifyValue();
                         }, 500);
@@ -524,16 +523,16 @@
 
                 var updatePoint = true;
 
-                function refreshData(){
-                	item_ebPrice  =  (Math.random()*6000+1).toFixed(0);
+                function refreshEbPriceData(){
+                	item_ebPrice  =  (Math.random()*20).toFixed(0);
                     if(ebPrice_data.length == 100){
-                        console.info(ebPrice_data.shift());
+                        ebPrice_data.shift();
                         updatePoint = false;
                     }
                     ebPrice_data.push(parseFloat(item_ebPrice));
                     
                     // 第2个参数表示是否重绘，第3个参数表示是否启用动画，第4个参数表示是否更新数据点[数组长度一样时建议false]
-                    chart.series[0].setData(ebPrice_data,true,true,updatePoint);
+                    ebPriceChart.series[0].setData(ebPrice_data,true,true,updatePoint);
                      
                 }
                 
@@ -683,17 +682,17 @@
 				
 				/* - - - - sumlator - - - - */
                 var item_ebRoundPer = 0;
-                var ebPrice_data = new Array();
+                var ebRoundPer_data = new Array();
                 
-                var chart = null;
+                var ebRoundPerChart = null;
                 $(function(){
-                    chart = $('#ebRoundPer_charts').highcharts();
+                	ebRoundPerChart = $('#ebRoundPer_charts').highcharts();
                     //不保证任务线程先后的执行顺序
                     /* setInterval(refreshData, 500);  */
                     
                     //保证任务线程先后的执行顺序  js为了保证任务的先后执行顺序会存放到任务队列
                     var modifyValue = function (){
-                        refreshData();
+                    	refreshEbRoundPerData();
                         setTimeout(function(){
                             modifyValue();
                         }, 500);
@@ -705,16 +704,16 @@
 
                 var updatePoint = true;
 
-                function refreshData(){
-                	item_ebRoundPer  =  (Math.random()*10+1).toFixed(2);
+                function refreshEbRoundPerData(){
+                	item_ebRoundPer  =  (Math.random()*1).toFixed(2);
                     if(ebPrice_data.length == 100){
-                        console.info(ebPrice_data.shift());
+                    	ebRoundPer_data.shift();
                         updatePoint = false;
                     }
-                    ebPrice_data.push(parseFloat(item_ebRoundPer));
+                    ebRoundPer_data.push(parseFloat(item_ebRoundPer));
                     
                     // 第2个参数表示是否重绘，第3个参数表示是否启用动画，第4个参数表示是否更新数据点[数组长度一样时建议false]
-                    chart.series[0].setData(ebPrice_data,true,true,updatePoint);
+                    ebRoundPerChart.series[0].setData(ebRoundPer_data,true,true,updatePoint);
                 }
                 
                 /* - - - - sumlator - - - - */
