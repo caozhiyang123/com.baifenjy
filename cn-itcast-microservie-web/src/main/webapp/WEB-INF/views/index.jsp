@@ -32,7 +32,7 @@
 	         	<li>
 	         		<span>Data analysis</span>
 	         		<ul>
-		         		<li data-options="attributes:{'url':'/page/vb_rtp_data'}">RTP</li>
+		         		<li data-options="attributes:{'url':'/page/vb_rtp_data'}">VB RTP</li>
 		         	</ul>
 	         	</li>
 	         </ul>

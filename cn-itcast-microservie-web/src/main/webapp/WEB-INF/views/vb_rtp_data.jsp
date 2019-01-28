@@ -55,7 +55,7 @@
     <div  class="fitem" style="font-family: monospace white-space: pre; background-color: rgb(240, 240, 240);">
         <label>from time:&nbsp;&nbsp;</label><input  type="text" id="timeFrom"  data-options="formatter:ww3,parser:w3,required:true,editable:false" class="easyui-datetimebox" style="width: 280px;">&nbsp;&nbsp;&nbsp;&nbsp;<label>to time:&nbsp;&nbsp;</label><input type="text" id="timeTo"  data-options="formatter:ww3,parser:w3,required:true,editable:false" class="easyui-datetimebox" style="width: 280px;">&nbsp;&nbsp;
         <label>game id:&nbsp;&nbsp;</label>
-	    <select class="easyui-combobox" id="gameId" style="width: 200px;height: 70%">
+	    <select class="easyui-combobox" id="gameId" style="width: 200px;height: 90%">
                 <option value=19 selected="selected">v1 AmericanChampion 19</option>
                 <option value=20>v1 showBall3 20</option>
                 <option value=21>v1 showBall2 21</option>
@@ -89,34 +89,34 @@
    <script type="text/javascript">
 	   var vb_gg1;var vb_gg2;var vb_gg3;var vb_gg4;var vb_gg5;var vb_gg6;var vb_gg7;
 	   $(function() {
-	       var dflt = {
+	       var dfltPer = {
         	   min : 0,
-               max : 30000,
+               max : 3000,
                donut : true,
                gaugeWidthScale : 0.6,
                counter : true,
                hideInnerShadow : true,
-               symbol: "/1000"
+               symbol: "‰"
 	       }
 	       var dfltCount = {
 	               min : 0,
 	               max : 30000,
 	               gaugeWidthScale : 0.6,
-	               symbol: "count"
+	               symbol: ""
 	       }
 	       
 	       vb_gg1 = new JustGage({
 	           id : 'vb_totalRTP',
-	           defaults : dflt
+	           defaults : dfltPer
 	       });
 	
 	       vb_gg2 = new JustGage({
 	           id : 'vb_totalBaseRTP',
-	           defaults : dflt
+	           defaults : dfltPer
 	       });
 	       vb_gg3 = new JustGage({
 	           id : 'vb_totalEBRTP',
-	           defaults : dflt
+	           defaults : dfltPer
 	       });
 	       vb_gg4 = new JustGage({
 	           id : 'vb_jackpotCount',
@@ -124,15 +124,15 @@
 	       });
 	       vb_gg5 = new JustGage({
 	           id : 'vb_deltaRTP',
-	           defaults : dflt
+	           defaults : dfltPer
 	       });
 	       vb_gg6 = new JustGage({
 	           id : 'vb_deltaBaseRTP',
-	           defaults : dflt
+	           defaults : dfltPer
 	       });
 	       vb_gg7 = new JustGage({
 	           id : 'vb_deltaEBRTP',
-	           defaults : dflt
+	           defaults : dfltPer
 	       });
 	       vb_gg8 = new JustGage({
 	           id : 'vb_user_count',
@@ -217,10 +217,10 @@
     	                vb_gg1.refresh(parseFloat(data.totalRTP)*1000);
     	                vb_gg2.refresh(parseFloat(data.totalBaseRTP)*1000);
     	                vb_gg3.refresh(parseFloat(data.totalEBRTP)*1000);
-    	                vb_gg4.refresh(parseFloat(data.jackpotCount)*1000);
     	                vb_gg5.refresh(parseFloat(data.deltaRTP)*1000);
     	                vb_gg6.refresh(parseFloat(data.deltaBaseRTP)*1000);
-    	                vb_gg7.refresh(parseFloat(data.deltaEBRTP));
+    	                vb_gg7.refresh(parseFloat(data.deltaEBRTP)*1000);
+    	                vb_gg4.refresh(parseFloat(data.jackpotCount));
     	                vb_gg8.refresh(parseFloat(data.user_count));
     	            },
     	            error: function (e) {

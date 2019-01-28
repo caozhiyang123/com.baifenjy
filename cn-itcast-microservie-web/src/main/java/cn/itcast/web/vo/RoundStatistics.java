@@ -194,7 +194,7 @@ public class RoundStatistics
     }
     public void setTotalExtraBallsPrice(String extraBallsPrices)
     {
-        String[] ebPrices = StringUtils.split(extraBallsPrices);
+        String[] ebPrices = StringUtils.split(extraBallsPrices,",");
         int size = ebPrices.length;
         for (int i =0;i<size;i++)
         {
