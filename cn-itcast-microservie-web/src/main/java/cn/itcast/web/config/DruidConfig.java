@@ -148,8 +148,9 @@ public class DruidConfig {
             catch (Exception e)
             {
                 logger.error("", e);
+            }finally{
+                rs = null;
             }
-            rs = null;
         }
         if (ps != null)
         {
@@ -160,6 +161,8 @@ public class DruidConfig {
             catch (Exception e)
             {
                 logger.error("", e);
+            }finally{
+                ps = null;
             }
         }
 
@@ -172,6 +175,8 @@ public class DruidConfig {
             catch (Exception e)
             {
                 logger.error("", e);
+            }finally{
+                conn = null;
             }
         }
     }

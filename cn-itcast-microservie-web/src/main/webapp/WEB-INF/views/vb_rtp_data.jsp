@@ -209,7 +209,7 @@
     	                vb_rtpChart.series[1].setData(seriesData1,true,true,true);
                         
     	                var seriesData2 = new Array();
-    	                $.each(data.baseRtp,function(key,values){
+    	                $.each(data.ebRtp,function(key,values){
     	                	seriesData2.push(parseFloat(values));
     	                });
     	                vb_rtpChart.series[2].setData(seriesData2,true,true,true);
