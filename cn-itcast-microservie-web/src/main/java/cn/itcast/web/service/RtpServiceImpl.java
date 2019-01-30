@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.util.concurrent.AtomicDouble;
 
 import cn.itcast.web.dao.RtpDao;
+import cn.itcast.web.io.SlotRtpResult;
+import cn.itcast.web.io.VBRtpResult;
 import cn.itcast.web.util.ThreadLocalSimple;
 import cn.itcast.web.vo.RoundStatistics;
 import cn.itcast.web.vo.RoundStatisticsSlot;
-import cn.itcast.web.vo.SlotRtpResult;
-import cn.itcast.web.vo.VBRtpResult;
 
 
 @Service

@@ -1,11 +1,7 @@
-package cn.itcast.web.vo;
+package cn.itcast.web.io;
 
-import java.io.Serializable;
-import java.text.DecimalFormat;
-import java.util.List;
-import java.util.Map;
 
-public class RtpResult implements Serializable
+public class RtpResult implements Result
 {
     private static final long serialVersionUID = 1L;
     

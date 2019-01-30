@@ -1,4 +1,4 @@
-package cn.itcast.web.vo;
+package cn.itcast.web.io;
 
 import java.util.Map;
 import java.util.TreeMap;

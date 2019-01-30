@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mysql.jdbc.StringUtils;
 
+import cn.itcast.web.io.SlotRtpResult;
+import cn.itcast.web.io.VBRtpResult;
 import cn.itcast.web.service.RtpService;
-import cn.itcast.web.vo.SlotRtpResult;
-import cn.itcast.web.vo.VBRtpResult;
 
 @Controller
 @RequestMapping("rtp")
