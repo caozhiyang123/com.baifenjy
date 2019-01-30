@@ -52,6 +52,7 @@ public class RtpDao
     public final static String JACKPOT_WIN = "jackpot_value";
     public final static String BALLS_INDEX = "balls_index";
     
+    public final static  String TABLE_NAME_SLOT = "round_statistics_slot";
     
     @Autowired
     DruidConfig druidConfig;
@@ -99,7 +100,36 @@ public class RtpDao
 
     public List<RoundStatisticsSlot> querySlotRtpByGameId(int gameId, String timeFrom, String timeTo)
     {
-        return null;
+        List<RoundStatisticsSlot> roundStatistics = new ArrayList<RoundStatisticsSlot>();
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rst = null;
+        try
+        {
+            conn = druidConfig.dataSource().getConnection();
+            String sql = String.format("select * from %s where %s = ? and %s >= ? and %s <= ?",TABLE_NAME_SLOT,GAME_ID,SPIN_TIME,SPIN_TIME );
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, gameId);
+            pst.setString(2, timeFrom);
+            pst.setString(3, timeTo);
+            rst = pst.executeQuery();
+            while(rst.next()){
+                RoundStatisticsSlot roundStatistic = new RoundStatisticsSlot();
+                roundStatistic.setGameId(rst.getInt(GAME_ID));
+                roundStatistic.setTotalWonOnRound(rst.getLong(TOTAL_WON_ON_ROUND));
+                roundStatistic.setTotalSpentOnRound(rst.getLong(TOTAL_SPENT_ON_ROUND));
+                roundStatistic.setBet(rst.getInt(CURRENT_BET));
+                roundStatistics.add(roundStatistic);
+            }
+            return roundStatistics;
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            logger.error("queryVbRtpByGameId error:"+e);
+        }finally{
+            druidConfig.release(conn, pst, rst);
+        }
+        return roundStatistics;
     }
 
     public long queryUserCountByTime(int gameId, String timeFrom, String timeTo)
@@ -156,5 +186,35 @@ public class RtpDao
         }
         return 0;
     }
+
+    public long queryUserCountByTimeOfSlot(int gameId, String timeFrom, String timeTo)
+    {
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rst = null;
+        try
+        {
+            conn = druidConfig.dataSource().getConnection();
+            String sql = String.format("select count(DISTINCT %s) from %s where %s = ? and %s >= ? and %s <=?",USER_ID,TABLE_NAME_SLOT,GAME_ID,SPIN_TIME,SPIN_TIME);
+            pst = conn.prepareStatement(sql);
+            pst.setLong(1, gameId);
+            pst.setString(2, timeFrom);
+            pst.setString(3, timeTo);
+            rst = pst.executeQuery();
+            while(rst.next()){
+                return rst.getInt(1);
+            }
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            logger.error("queryUserCountByTime error:"+e);
+        }finally{
+            druidConfig.release(conn, pst, rst);
+        }
+        
+        return 0;
+    }
+    
+    
     
 }

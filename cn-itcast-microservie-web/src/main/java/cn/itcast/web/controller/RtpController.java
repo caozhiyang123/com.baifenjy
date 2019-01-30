@@ -29,7 +29,6 @@ public class RtpController
         if(StringUtils.isNullOrEmpty(timeFrom) || StringUtils.isNullOrEmpty(timeTo) || gameId<= 0){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        System.out.println(gameId+","+timeFrom+","+timeTo);
         VBRtpResult rtpResult = rtpService.queryVbRtpByGameId(gameId,timeFrom,timeTo);
         if(rtpResult!=null){
             return ResponseEntity.ok(rtpResult);
@@ -42,7 +41,14 @@ public class RtpController
             @RequestParam(value="timeTo",required=true)String timeTo,
             @RequestParam(value="gameId",required=true)int gameId){
         
-                return null;
+        if(StringUtils.isNullOrEmpty(timeFrom) || StringUtils.isNullOrEmpty(timeTo) || gameId<= 0){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        SlotRtpResult rtpResult = rtpService.querySlotRtpByGameId(gameId, timeFrom, timeTo);
+        if(rtpResult != null){
+            return ResponseEntity.ok(rtpResult);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         
     }
 

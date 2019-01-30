@@ -1,14 +1,10 @@
 package cn.itcast.web.service;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +15,7 @@ import com.google.common.util.concurrent.AtomicDouble;
 import cn.itcast.web.dao.RtpDao;
 import cn.itcast.web.util.ThreadLocalSimple;
 import cn.itcast.web.vo.RoundStatistics;
-import cn.itcast.web.vo.RtpResult;
+import cn.itcast.web.vo.RoundStatisticsSlot;
 import cn.itcast.web.vo.SlotRtpResult;
 import cn.itcast.web.vo.VBRtpResult;
 
@@ -111,8 +107,6 @@ public class RtpServiceImpl implements RtpService
     {
         try
         {
-            System.out.println(ThreadLocalSimple.df.get().format(calendarAt12.getTime()));
-            System.out.println(ThreadLocalSimple.df.get().format(calendarTo.getTime()));
             if(calendarAt12.before(calendarTo)){
                 String time12 = ThreadLocalSimple.df.get().format(calendarAt12.getTime());
                 List<RoundStatistics> roundStatisticsBetween = rtpDao.queryVbRtpByGameId(gameId, timeFrom, time12);
@@ -226,8 +220,100 @@ public class RtpServiceImpl implements RtpService
     @Override
     public SlotRtpResult querySlotRtpByGameId(int gameId, String timeFrom, String timeTo)
     {
-//        return rtpDao.querySlotRtpByGameId(gameId,timeFrom,timeTo);
-        return null;
+        SlotRtpResult slotRtpResult = null;
+        List<RoundStatisticsSlot> roundStatisticsSlotList = rtpDao.querySlotRtpByGameId(gameId,timeFrom,timeTo);
+        if(roundStatisticsSlotList.size() == 0){
+            return slotRtpResult;
+        }else{
+            slotRtpResult = new SlotRtpResult();
+        }
+        for (RoundStatisticsSlot roundStatisticsSlot : roundStatisticsSlotList)
+        {
+            slotRtpResult.setTotalWon(slotRtpResult.getTotalWon()+roundStatisticsSlot.getTotalWonOnRound());
+            slotRtpResult.setTotalSpent(slotRtpResult.getTotalSpent()+roundStatisticsSlot.getTotalSpentOnRound());
+        }
+        if(slotRtpResult.getTotalSpent()>0){
+            BigDecimal totalRtpBg = new BigDecimal((double)slotRtpResult.getTotalWon()/(double)slotRtpResult.getTotalSpent());
+            slotRtpResult.setTotalRTP(totalRtpBg.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue());
+        }else{
+            slotRtpResult.setTotalRTP(0.00);
+        }
+        
+        slotRtpResult.setTotalSpins(roundStatisticsSlotList.size());
+        slotRtpResult.setTotal_user_count(rtpDao.queryUserCountByTimeOfSlot(gameId, timeFrom, timeTo));
+        slotRtpResult.setTotal_Jackpot_count(rtpDao.querJackpotCountByTime(gameId, timeFrom, timeTo));
+        
+        // - - - - - - - dynamic data - - - - - - -
+        try
+        {
+            Calendar calendarFrom = Calendar.getInstance();
+            calendarFrom.setTime(ThreadLocalSimple.df.get().parse(timeFrom));
+            
+            Calendar calendarAt12 = Calendar.getInstance();
+            calendarAt12.set(calendarFrom.get(Calendar.YEAR), calendarFrom.get(Calendar.MONTH), calendarFrom.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
+            
+            Calendar calendarTo = Calendar.getInstance();
+            calendarFrom.setTime(ThreadLocalSimple.df.get().parse(timeTo));
+            
+            rtpStatistics(gameId, timeFrom, timeTo, slotRtpResult, calendarAt12, calendarTo);
+            
+            return slotRtpResult;
+            
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        return slotRtpResult;
+    }
+
+    private void rtpStatistics(int gameId, String timeFrom, String timeTo, SlotRtpResult slotRtpResult,
+            Calendar calendarAt12, Calendar calendarTo)
+    {
+        try
+        {
+            if(calendarAt12.before(calendarTo)){
+                String time12 = ThreadLocalSimple.df.get().format(calendarAt12.getTime());
+                List<RoundStatisticsSlot> roundStatisticsBetween = rtpDao.querySlotRtpByGameId(gameId, timeFrom, time12);
+                CalculateRtp(timeFrom, slotRtpResult, time12, roundStatisticsBetween);
+                
+                Calendar calendar12New = Calendar.getInstance();
+                calendar12New.setTime(ThreadLocalSimple.df.get().parse(time12));
+                calendar12New.add(Calendar.DAY_OF_MONTH, 1);
+                rtpStatistics(gameId,time12,timeTo,slotRtpResult,calendar12New,calendarTo);
+            }else if(calendarAt12.after(calendarTo)){
+                List<RoundStatisticsSlot> roundStatisticsBetween = rtpDao.querySlotRtpByGameId(gameId, timeFrom, timeTo);
+                CalculateRtp(timeFrom, slotRtpResult, timeTo, roundStatisticsBetween);
+            }
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+    
+    }
+
+    private void CalculateRtp(String timeFrom, SlotRtpResult slotRtpResult, String time12,
+            List<RoundStatisticsSlot> roundStatisticsBetween)
+    {
+        long totalWon = 0;
+        long totalSpent = 0;
+        
+        if(roundStatisticsBetween.size() == 0){
+            return;
+        }
+        for (RoundStatisticsSlot roundStatistic : roundStatisticsBetween)
+        {
+            totalWon += roundStatistic.getTotalWonOnRound();
+            totalSpent += roundStatistic.getTotalSpentOnRound();
+        }
+        if(totalSpent>0){
+            BigDecimal rtpBg = new BigDecimal((double)totalWon/(double)totalSpent);
+            double rtp = rtpBg.setScale(3,BigDecimal.ROUND_HALF_UP).doubleValue();
+            slotRtpResult.getRtp().put(timeFrom+"-"+time12,rtp);
+            rtps.add(rtp);
+        }else{
+            slotRtpResult.getRtp().put(timeFrom+"-"+time12,0.00);
+            rtps.add(0.00);
+        }
     }
 
 }

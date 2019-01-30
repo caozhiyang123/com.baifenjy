@@ -1,20 +1,26 @@
 package cn.itcast.web.vo;
 
-import java.io.Serializable;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class SlotRtpResult implements Serializable
+public class SlotRtpResult extends RtpResult
 {
     private static final long serialVersionUID = 1L;
-    private long user_count;
+    
+    private Map<String,Double> rtp = new TreeMap<String,Double>();
+    
     private double totalRTP;
-    private long totalWon;
-    public long getUser_count()
+    private long total_user_count;
+    private long total_Jackpot_count;
+    private long totalSpins;
+    
+    public Map<String, Double> getRtp()
     {
-        return user_count;
+        return rtp;
     }
-    public void setUser_count(long user_count)
+    public void setRtp(Map<String, Double> rtp)
     {
-        this.user_count = user_count;
+        this.rtp = rtp;
     }
     public double getTotalRTP()
     {
@@ -24,13 +30,30 @@ public class SlotRtpResult implements Serializable
     {
         this.totalRTP = totalRTP;
     }
-    public long getTotalWon()
+    public long getTotal_user_count()
     {
-        return totalWon;
+        return total_user_count;
     }
-    public void setTotalWon(long totalWon)
+    public void setTotal_user_count(long total_user_count)
     {
-        this.totalWon = totalWon;
+        this.total_user_count = total_user_count;
     }
+    public long getTotal_Jackpot_count()
+    {
+        return total_Jackpot_count;
+    }
+    public void setTotal_Jackpot_count(long total_Jackpot_count)
+    {
+        this.total_Jackpot_count = total_Jackpot_count;
+    }
+    public long getTotalSpins()
+    {
+        return totalSpins;
+    }
+    public void setTotalSpins(long totalSpins)
+    {
+        this.totalSpins = totalSpins;
+    }
+    
     
 }

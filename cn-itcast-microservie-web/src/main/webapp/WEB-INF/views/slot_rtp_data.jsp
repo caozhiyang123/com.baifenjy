@@ -23,10 +23,12 @@
             <ul>
                 <li><div id="slot_totalRTP" class="gauge" data-value="998"></div>
                     <span>totalRTP</span></li>
-                <li><div id="slot_jackpotCount" class="gauge" data-value="100"></div>
-                    <span>jackpotCount</span></li>
                 <li><div id="slot_user_count" class="gauge" data-value="10000"></div>
                     <span>totalUserCount</span></li>
+                <li><div id="slot_jackpotCount" class="gauge" data-value="100"></div>
+                    <span>jackpotCount</span></li>
+                <li><div id="slot_spinCount" class="gauge" data-value="100000"></div>
+                    <span>spinCount</span></li>
             </ul>
         </div>
         <div class="center">
@@ -50,10 +52,10 @@
                 <option value=63>slot halloweenX 63</option>
                 <option value=66>slot halloween25 66</option>
         </select>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a onclick="rtpQuery()" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="background-color:rgb(240, 240, 240)">start</a>
+        <a onclick="slotRtpQuery()" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="background-color:rgb(240, 240, 240)">start</a>
     </div>
    <script type="text/javascript">
-	   var slot_gg1;var slot_gg2;var slot_gg3;
+	   var slot_gg1;var slot_gg2;var slot_gg3;var slot_gg4;
 	   $(function() {
 	       var slotDfltPer = {
         	   min : 0,
@@ -66,7 +68,7 @@
 	       }
 	       var slotDfltCount = {
 	               min : 0,
-	               max : 30000,
+	               max : 10000000,
 	               gaugeWidthScale : 0.6,
 	               symbol: ""
 	       }
@@ -74,18 +76,21 @@
 	           id : 'slot_totalRTP',
 	           defaults : slotDfltPer
 	       });
-	
 	       slot_gg2 = new JustGage({
-	           id : 'slot_jackpotCount',
+	           id : 'slot_user_count',
 	           defaults : slotDfltCount
 	       });
 	       slot_gg3 = new JustGage({
-	           id : 'slot_user_count',
+	           id : 'slot_jackpotCount',
+	           defaults : slotDfltCount
+	       });
+	       slot_gg4 = new JustGage({
+	           id : 'slot_spinCount',
 	           defaults : slotDfltCount
 	       });
 	   });
 	   
-       function rtpQuery(){
+       function slotRtpQuery(){
     	   var slotTimeFrom = $('#slotTimeFrom').datetimebox('getValue');
     	   var slotTimeTo = $('#slotTimeTo').datetimebox('getValue');
     	   var slotGameId = $("#slotGameId").combobox("getValue");
@@ -98,18 +103,19 @@
     	            success:function(data){
     	                console.info(data);
     	                var slot_rtpChart = $('#slot_RTP_charts').highcharts();
-    	                var category0 = new Array();
-    	                var seriesData0 = new Array();
+    	                var slot_category0 = new Array();
+    	                var slot_seriesData0 = new Array();
     	                $.each(data.rtp,function(key,values){
-    	                	category0.push(key);
-    	                	seriesData0.push(parseFloat(values));
+    	                	slot_category0.push(key);
+    	                	slot_seriesData0.push(parseFloat(values));
     	                 });
-    	                slot_rtpChart.xAxis[0].setCategories(category0);
-    	                slot_rtpChart.series[0].setData(seriesData0,true,true,true);
+    	                slot_rtpChart.xAxis[0].setCategories(slot_category0);
+    	                slot_rtpChart.series[0].setData(slot_seriesData0,true,true,true);
     	                
     	                slot_gg1.refresh(parseFloat(data.totalRTP)*1000);
-    	                slot_gg2.refresh(parseFloat(data.jackpotCount));
-    	                slot_gg3.refresh(parseFloat(data.user_count));
+    	                slot_gg2.refresh(parseFloat(data.total_user_count));
+    	                slot_gg3.refresh(parseFloat(data.total_Jackpot_count));
+    	                slot_gg4.refresh(parseFloat(data.totalSpins));
     	            },
     	            error: function (e) {
     	                console.info(e);

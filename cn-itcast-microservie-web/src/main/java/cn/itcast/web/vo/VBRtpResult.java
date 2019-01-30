@@ -1,18 +1,17 @@
 package cn.itcast.web.vo;
 
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
-public class VBRtpResult implements Serializable
+public class VBRtpResult extends RtpResult
 {
     private static final long serialVersionUID = 1L;
     
-    private Map<String,Double> rtp = new HashMap<String,Double>();
-    private Map<String,Double> baseRtp = new HashMap<String,Double>();
-    private Map<String,Double> ebRtp = new HashMap<String,Double>();
+    private Map<String,Double> rtp = new TreeMap<String,Double>();
+    private Map<String,Double> baseRtp = new TreeMap<String,Double>();
+    private Map<String,Double> ebRtp = new TreeMap<String,Double>();
     
-    private Map<String,Double> ebPrice = new HashMap<String,Double>();// 10 ebSpentWithoutBet / ebCount,(ebSpentWithoutBet = (double) price / this.playerState.getCurrentBet())
+    private Map<String,Double> ebPrice = new TreeMap<String,Double>();// 10 ebSpentWithoutBet / ebCount,(ebSpentWithoutBet = (double) price / this.playerState.getCurrentBet())
     
     private double totalRTP;
     private double totalBaseRTP;
@@ -22,7 +21,6 @@ public class VBRtpResult implements Serializable
     private double deltaBaseRTP;
     private double deltaEBRTP;
     
-    private long totalWon;//1
     private long totalBaseWon;//2
     private long totalEbWon;//3
     private long totalSpins;//7
@@ -31,47 +29,27 @@ public class VBRtpResult implements Serializable
     
     private long totalBseSpent;//6
     private long totalEbSpent;//5
-    private long totalSpent;//4
     
-    
-    /**
-     * @return the rtp
-     */
     public Map<String, Double> getRtp()
     {
         return rtp;
     }
-    /**
-     * @param rtp the rtp to set
-     */
     public void setRtp(Map<String, Double> rtp)
     {
         this.rtp = rtp;
     }
-    /**
-     * @return the baseRtp
-     */
     public Map<String, Double> getBaseRtp()
     {
         return baseRtp;
     }
-    /**
-     * @param baseRtp the baseRtp to set
-     */
     public void setBaseRtp(Map<String, Double> baseRtp)
     {
         this.baseRtp = baseRtp;
     }
-    /**
-     * @return the ebRtp
-     */
     public Map<String, Double> getEbRtp()
     {
         return ebRtp;
     }
-    /**
-     * @param ebRtp the ebRtp to set
-     */
     public void setEbRtp(Map<String, Double> ebRtp)
     {
         this.ebRtp = ebRtp;
@@ -148,14 +126,6 @@ public class VBRtpResult implements Serializable
     {
         this.user_count = user_count;
     }
-    public long getTotalWon()
-    {
-        return totalWon;
-    }
-    public void setTotalWon(long totalWon)
-    {
-        this.totalWon = totalWon;
-    }
     public long getTotalBaseWon()
     {
         return totalBaseWon;
@@ -195,14 +165,6 @@ public class VBRtpResult implements Serializable
     public void setTotalEbSpent(long totalEbSpent)
     {
         this.totalEbSpent = totalEbSpent;
-    }
-    public long getTotalSpent()
-    {
-        return totalSpent;
-    }
-    public void setTotalSpent(long totalSpent)
-    {
-        this.totalSpent = totalSpent;
     }
     
 }
