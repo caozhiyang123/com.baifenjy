@@ -91,6 +91,9 @@
 	   });
 	   
        function slotRtpQuery(){
+    	   //加载遮罩效果
+    	   EasyUILoad();
+    	   
     	   var slotTimeFrom = $('#slotTimeFrom').datetimebox('getValue');
     	   var slotTimeTo = $('#slotTimeTo').datetimebox('getValue');
     	   var slotGameId = $("#slotGameId").combobox("getValue");
@@ -101,6 +104,9 @@
     	            dataType:"json",
     	            data:{timeFrom:slotTimeFrom,timeTo:slotTimeTo,gameId:slotGameId},
     	            success:function(data){
+    	            	//隐藏遮罩效果
+                        dispalyEasyUILoad();
+    	            	
     	                console.info(data);
     	                var slot_rtpChart = $('#slot_RTP_charts').highcharts();
     	                var slot_category0 = new Array();
@@ -109,6 +115,15 @@
     	                	slot_category0.push(key);
     	                	slot_seriesData0.push(parseFloat(values));
     	                 });
+    	                // get and set title
+    	                var current_title = {
+                                text: '[current game id:'+gameId+']  '+vb_rtpChart.title.textStr,   
+                                style:{
+                                    color:"#ff0000"
+                                }
+                            };
+    	                slot_rtpChart.setTitle(current_title,null,true);
+    	                
     	                slot_rtpChart.xAxis[0].setCategories(slot_category0);
     	                slot_rtpChart.series[0].setData(slot_seriesData0,true,true,true);
     	                
@@ -118,6 +133,9 @@
     	                slot_gg4.refresh(parseFloat(data.totalSpins));
     	            },
     	            error: function (e) {
+    	            	//隐藏遮罩效果
+                        dispalyEasyUILoad();
+    	            	
     	                console.info(e);
     	            }
     	        });

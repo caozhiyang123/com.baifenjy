@@ -84,6 +84,7 @@
                  -->
         </select>&nbsp;&nbsp;&nbsp;&nbsp;
         <a onclick="rtpQuery()" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="background-color:rgb(240, 240, 240)">start</a>
+        <div id="vb_progress" style="width:100%;"></div>
     </div>
    <script type="text/javascript">
 	   var vb_gg1;var vb_gg2;var vb_gg3;var vb_gg4;var vb_gg5;var vb_gg6;var vb_gg7;
@@ -175,20 +176,48 @@
           
           modifyVbValue(); */
      // - - - - -- - sumlator - - - - - -- -  -
-   
+          
+       function addProgressBar(){
+    	   $('#vb_progress').progressbar({
+               value: '0',
+               width: '100%',
+               height: '50',
+               text: '{value}%'
+           });
+       }
+          
+       function changeRtpPro(){
+    	   var vb_progress_value = $('#vb_progress').progressbar('getValue');
+           if (vb_progress_value < 100){
+               vb_progress_value += Math.floor(Math.random() * 10);
+               $('#vb_progress').progressbar('setValue', vb_progress_value);
+               setTimeout(arguments.callee, 200);
+           }
+       }
+       
        function rtpQuery(){
+    	   //progress
+    	   //addProgressBar();
+    	   //changeRtpPro();
+    	   //加载遮罩效果
+    	   EasyUILoad();
+    	   
     	   var timeFrom = $('#timeFrom').datetimebox('getValue');
     	   var timeTo = $('#timeTo').datetimebox('getValue');
     	   //var gameId = $("input[name='gameId']").val();
     	   var gameId = $("#gameId").combobox("getValue");
     	   $(function(){
+    		   //progress
+    		   
     	        $.ajax({
     	            type:"GET",
     	            url:"/rtp/query/vb",
     	            dataType:"json",
     	            data:{timeFrom:timeFrom,timeTo:timeTo,gameId:gameId},
     	            success:function(data){
-    	                console.info(data);
+    	            	//隐藏遮罩效果
+    	            	dispalyEasyUILoad();
+    	            	
     	                var vb_rtpChart = $('#vb_RTP_charts').highcharts();
     	                
     	                var category0 = new Array();
@@ -198,6 +227,15 @@
     	                	seriesData0.push(parseFloat(values));
 	   	                	//vb_rtpChart.series[0].addPoint([key, parseFloat(values)], true, true,true);  
     	                 });
+    	                //get and set title
+    	                var current_title = {
+    	                	text: '[current game id:'+gameId+']  '+vb_rtpChart.title.textStr,	
+    	                	style:{
+    	                        color:"#ff0000"
+    	                    }
+    	                };
+    	                vb_rtpChart.setTitle(current_title,null,true);
+    	                
     	                vb_rtpChart.xAxis[0].setCategories(category0);
     	                vb_rtpChart.series[0].setData(seriesData0,true,true,true);
     	                
@@ -221,12 +259,19 @@
     	                vb_gg7.refresh(parseFloat(data.deltaEBRTP)*1000);
     	                vb_gg4.refresh(parseFloat(data.jackpotCount));
     	                vb_gg8.refresh(parseFloat(data.user_count));
+    	                
+    	                //close progressBar
+    	                //$('#vb_progress').progressbar('close');
     	            },
     	            error: function (e) {
+    	            	//隐藏遮罩效果
+                        dispalyEasyUILoad();
     	                console.info(e);
     	            }
     	        });
     	    });
+    	   
+    	   
        }
        
        function ww3(date){  
@@ -269,7 +314,7 @@
                                     {
                                         chart : {
                                             type : 'spline',
-                                            events : {
+                                            events : {       
                                                 load : function() {
     
                                                 }

@@ -32,8 +32,9 @@
 	         	<li>
 	         		<span>Data analysis</span>
 	         		<ul>
-		         		<li data-options="attributes:{'url':'/page/vb_rtp_data'}">VB RTP</li>
-		         		<li data-options="attributes:{'url':'/page/slot_rtp_data'}">slot RTP</li>
+		         		<li data-options="attributes:{'url':'/page/vb_rtp_data'}">VB-RTP</li>
+		         		<li data-options="attributes:{'url':'/page/slot_rtp_data'}">slot-RTP</li>
+		         		<li data-options="attributes:{'url':'/page/analysis_sys_log'}">analysis-sys-log</li>
 		         	</ul>
 	         	</li>
 	         </ul>
@@ -58,33 +59,43 @@
     
     
 <script type="text/javascript">
-$(function(){
-	/*布局部分*/
-	$('#master-layout').layout({
-		fit:true/*布局框架全屏*/
-	});   
-	
-	$('#menu').tree({
-		onClick: function(node){
-			//判断是否是叶子节点,node.target获取的是叶子节点Dom对象
-			if($('#menu').tree("isLeaf",node.target)){
-				var tabs = $("#tabs");
-				//获取指定选项卡面板
-				var tab = tabs.tabs("getTab",node.text);
-				if(tab){
-					tabs.tabs("select",node.text);
-				}else{
-					tabs.tabs('add',{
-					    title:node.text,
-					    href: node.attributes.url,
-					    closable:true,
-					    bodyCls:"content"
-					});
+	$(function(){
+		/*布局部分*/
+		$('#master-layout').layout({
+			fit:true/*布局框架全屏*/
+		});   
+		
+		$('#menu').tree({
+			onClick: function(node){
+				//判断是否是叶子节点,node.target获取的是叶子节点Dom对象
+				if($('#menu').tree("isLeaf",node.target)){
+					var tabs = $("#tabs");
+					//获取指定选项卡面板
+					var tab = tabs.tabs("getTab",node.text);
+					if(tab){
+						tabs.tabs("select",node.text);
+					}else{
+						tabs.tabs('add',{
+						    title:node.text,
+						    href: node.attributes.url,
+						    closable:true,
+						    bodyCls:"content"
+						});
+					}
 				}
 			}
-		}
+		});
 	});
-});
+	
+	function EasyUILoad() {
+        $("<div class=\"datagrid-mask\"></div>").css({ display: "block", width: "100%", height: "auto !important" }).appendTo("body");
+        $("<div class=\"datagrid-mask-msg\"></div>").html("<img  class ='img1' /> data loading。。。").appendTo("body").css({ display: "block", left: ($(document.body).outerWidth(true) - 190) / 2, top: ($(window).height() - 45) / 2 });
+    }
+ 
+    function dispalyEasyUILoad() {
+        $(".datagrid-mask").remove();
+        $(".datagrid-mask-msg").remove();
+    }
 </script>
 </body>
 </html>
