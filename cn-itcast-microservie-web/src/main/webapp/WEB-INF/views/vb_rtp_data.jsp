@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -423,10 +422,10 @@
                 var vb_rtpChart = null;
                 $(function(){
                     vb_rtpChart = $('#vb_RTP_charts').highcharts();
-                    //不保证任务线程先后的执行顺序
+                    //ä¸ä¿è¯ä»»å¡çº¿ç¨ååçæ§è¡é¡ºåº
                     // setInterval(refreshData, 500);  
                     
-                    //保证任务线程先后的执行顺序  js为了保证任务的先后执行顺序会存放到任务队列
+                    //ä¿è¯ä»»å¡çº¿ç¨ååçæ§è¡é¡ºåº  jsä¸ºäºä¿è¯ä»»å¡çååæ§è¡é¡ºåºä¼å­æ¾å°ä»»å¡éå
                     var modifyVbValue = function (){
                         refreshVbRtpData();
                         setTimeout(function(){
@@ -454,7 +453,7 @@
                     vb_base_rtp_data.push(parseFloat(vb_item_base_rtp));
                     vb_eb_rtp_data.push(parseFloat(vb_item_eb_rtp));
                     
-                    // 第2个参数表示是否重绘，第3个参数表示是否启用动画，第4个参数表示是否更新数据点[数组长度一样时建议false]
+                    // ç¬¬2ä¸ªåæ°è¡¨ç¤ºæ¯å¦éç»ï¼ç¬¬3ä¸ªåæ°è¡¨ç¤ºæ¯å¦å¯ç¨å¨ç»ï¼ç¬¬4ä¸ªåæ°è¡¨ç¤ºæ¯å¦æ´æ°æ°æ®ç¹[æ°ç»é¿åº¦ä¸æ ·æ¶å»ºè®®false]
                     vb_rtpChart.series[0].setData(vb_rtp_data,true,true,updateVbPoint);
                     vb_rtpChart.series[1].setData(vb_base_rtp_data,true,true,updateVbPoint);
                     vb_rtpChart.series[2].setData(vb_eb_rtp_data,true,true,updateVbPoint); 
@@ -612,10 +611,10 @@
                 var vb_ebPriceChart = null;
                 $(function(){
                     vb_ebPriceChart = $('#vb_ebPrice_charts').highcharts();
-                    //不保证任务线程先后的执行顺序
+                    //ä¸ä¿è¯ä»»å¡çº¿ç¨ååçæ§è¡é¡ºåº
                     /* setInterval(refreshData, 500);  */
                     
-                    //保证任务线程先后的执行顺序  js为了保证任务的先后执行顺序会存放到任务队列
+                    //ä¿è¯ä»»å¡çº¿ç¨ååçæ§è¡é¡ºåº  jsä¸ºäºä¿è¯ä»»å¡çååæ§è¡é¡ºåºä¼å­æ¾å°ä»»å¡éå
                     var modifyVbEbPriceValue = function (){
                     	refreshVbEbPriceData();
                         setTimeout(function(){
@@ -637,7 +636,7 @@
                     }
                     vb_ebPrice_data.push(parseFloat(vb_item_ebPrice));
                     
-                    // 第2个参数表示是否重绘，第3个参数表示是否启用动画，第4个参数表示是否更新数据点[数组长度一样时建议false]
+                    // ç¬¬2ä¸ªåæ°è¡¨ç¤ºæ¯å¦éç»ï¼ç¬¬3ä¸ªåæ°è¡¨ç¤ºæ¯å¦å¯ç¨å¨ç»ï¼ç¬¬4ä¸ªåæ°è¡¨ç¤ºæ¯å¦æ´æ°æ°æ®ç¹[æ°ç»é¿åº¦ä¸æ ·æ¶å»ºè®®false]
                     vb_ebPriceChart.series[0].setData(vb_ebPrice_data,true,true,updateVbEbPricePoint);
                      
                 }
@@ -793,10 +792,10 @@
                 var vb_ebRoundPerChart = null;
                 $(function(){
                     vb_ebRoundPerChart = $('#vb_ebRoundPer_charts').highcharts();
-                    //不保证任务线程先后的执行顺序
+                    //ä¸ä¿è¯ä»»å¡çº¿ç¨ååçæ§è¡é¡ºåº
                     /* setInterval(refreshData, 500);  */
                     
-                    //保证任务线程先后的执行顺序  js为了保证任务的先后执行顺序会存放到任务队列
+                    //ä¿è¯ä»»å¡çº¿ç¨ååçæ§è¡é¡ºåº  jsä¸ºäºä¿è¯ä»»å¡çååæ§è¡é¡ºåºä¼å­æ¾å°ä»»å¡éå
                     var modifyVbEbRoundPerValue = function (){
                     	refreshVbEbRoundPerData();
                         setTimeout(function(){
@@ -818,7 +817,7 @@
                     }
                     vb_ebRoundPer_data.push(parseFloat(vb_item_ebRoundPer));
                     
-                    // 第2个参数表示是否重绘，第3个参数表示是否启用动画，第4个参数表示是否更新数据点[数组长度一样时建议false]
+                    // ç¬¬2ä¸ªåæ°è¡¨ç¤ºæ¯å¦éç»ï¼ç¬¬3ä¸ªåæ°è¡¨ç¤ºæ¯å¦å¯ç¨å¨ç»ï¼ç¬¬4ä¸ªåæ°è¡¨ç¤ºæ¯å¦æ´æ°æ°æ®ç¹[æ°ç»é¿åº¦ä¸æ ·æ¶å»ºè®®false]
                     vb_ebRoundPerChart.series[0].setData(vb_ebRoundPer_data,true,true,updateVbEbRoundPerPoint);
                 }
                 
@@ -834,7 +833,7 @@
 
 <!--
             <span class="icons" style="font-size:28px;">&#xe601;</span>
-            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-help'">娴嬭瘯</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-help'">å¨´å¬­ç¯</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-set'"></a>
             -->
 </body>
