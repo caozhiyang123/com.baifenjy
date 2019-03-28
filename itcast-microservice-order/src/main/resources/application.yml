@@ -81,10 +81,7 @@ logging:
 
 
 #配置MyBatis环境  别名扫描
-mybatis:
+#mybatis:
 #  type-aliases-package: cn.itcast.microservice.pojo
 #  config-locations:  classpath:mybatis/mybatis-config.xml
-
-#加载Mybatis核心配置文件
-#  mapper-locations: classpath:mapper/*Mapper.xml
-
+#  mapper-locations: classpath:mybatis/mapper/*.xml

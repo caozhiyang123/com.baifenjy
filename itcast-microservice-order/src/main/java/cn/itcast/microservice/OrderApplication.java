@@ -16,13 +16,13 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Created by czy on 2018-03-22.
  */
+@ImportResource("classpath:applicationContext.xml")
 @MapperScan(basePackages = {"cn.itcast.microservice.mapper"})
 @EnableFeignClients(basePackages = "cn.itcast.microservice.feign")
 @EnableHystrix
 @SpringBootApplication
 @EnableEurekaClient
 @ComponentScan(basePackages = {"cn.itcast.microservice"})
-@ImportResource("classpath:applicationContext.xml")
 public class OrderApplication {
 
     @Bean

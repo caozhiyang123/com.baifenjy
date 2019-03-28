@@ -41,8 +41,6 @@ eureka:
     fetchRegistry: true #是否从eureka服务中获取信息
     serviceUrl: #Eureka客户端与Eureka服务端交互地址
       defaultZone: http://oriki:1234@127.0.0.1:6868/eureka/,http://oriki:1234@127.0.0.1:6869/eureka/
-      # http://127.0.0.1:6868/eureka/ ,http://127.0.0.1:6869/eureka/
-      #http://oriki:1234@localhost:6869/eureka/
     #eurekaServerConnectionTimeoutSeconds: 60
     #eurekaServerReadTimeoutSeconds: 60
   instance:
