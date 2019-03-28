@@ -1,5 +1,7 @@
 package cn.itcast.microservice.feign.pojo;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import cn.itcast.microservice.pojo.BasePojo;
 
 public class Item extends BasePojo{
@@ -9,7 +11,7 @@ public class Item extends BasePojo{
     
     private String title;
     
-    private String desc;
+    private String item_desc;
     
     private String others;
     
@@ -31,13 +33,13 @@ public class Item extends BasePojo{
     {
         this.title = title;
     }
-    public String getDesc()
+    public String getItem_desc()
     {
-        return desc;
+        return item_desc;
     }
-    public void setDesc(String desc)
+    public void setItem_desc(String item_desc)
     {
-        this.desc = desc;
+        this.item_desc = item_desc;
     }
     public String getOthers()
     {
@@ -55,18 +57,37 @@ public class Item extends BasePojo{
     {
         this.price = price;
     }
-    public Item(String title, String desc, String others, String price)
+    public Item(String title, String item_desc, String others, String price)
     {
         super();
         this.title = title;
-        this.desc = desc;
+        this.item_desc = item_desc;
         this.others = others;
         this.price = price;
     }
+    
+    public Item(String title, String item_desc, String others, String price,String updated,String created)
+    {
+        super();
+        this.title = title;
+        this.item_desc = item_desc;
+        this.others = others;
+        this.price = price;
+        this.updated = updated;
+        this.created = created;
+    }
+    
+    /**
+     * jackson readValue rely on this construct
+     */
+    public Item()
+    {
+    }
+    
     @Override
     public String toString()
     {
-        return "Item [id=" + id + ", title=" + title + ", desc=" + desc + ", others=" + others + ", price=" + price
-                + "]";
+        return "Item [id=" + id + ", title=" + title + ", item_desc=" + item_desc + ", others=" + others + ", price="
+                + price + ", created=" + created + ", updated=" + updated + "]";
     }
 }

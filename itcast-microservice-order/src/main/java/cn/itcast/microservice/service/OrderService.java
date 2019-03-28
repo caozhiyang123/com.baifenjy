@@ -24,7 +24,7 @@ public class OrderService extends BaseService<Order>
         for (Order or : orders)
         {
             Item item = itemService.queryItemById(or.getItemId());
-            if(item == null || (item!=null && Reply.NO_ITEM.equals(item.getDesc()))){
+            if(item == null || (item!=null && Reply.NO_ITEM.equals(item.getItem_desc()))){
                 or.setOrderItem(Reply.NO_ITEM);
             }else{
                 or.setOrderItem(item.toString());

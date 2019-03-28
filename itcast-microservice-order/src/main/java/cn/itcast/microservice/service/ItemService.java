@@ -19,8 +19,9 @@ public class ItemService
     
     @HystrixCommand(fallbackMethod = "checkMethod")
     public Item queryItemById(long id) throws Exception {
-        Item item = new ObjectMapper().readValue(itemOfEduClient.queryItemById(id),Item.class);
-        System.out.println(item == null?"null":item.toString());
+        String str = itemOfEduClient.queryItemById(id);
+        System.out.println(str);
+        Item item = new ObjectMapper().readValue(str,Item.class);
         return item;
     }
     

@@ -44,13 +44,14 @@ public class Item extends BasePojo{
     {
         this.title = title;
     }
-    public String getDesc()
+    
+    public String getItem_desc()
     {
         return item_desc;
     }
-    public void setDesc(String desc)
+    public void setItem_desc(String item_desc)
     {
-        this.item_desc = desc;
+        this.item_desc = item_desc;
     }
     public String getOthers()
     {

@@ -12,10 +12,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public abstract class BasePojo implements Serializable{
 
     @Column(name="created",columnDefinition="varchar(50)")
-    private String created;
+    public String created;
 
     @Column(name="updated",columnDefinition="varchar(50)")
-    private String updated;
+    public String updated;
 
     public String getCreated()
     {
