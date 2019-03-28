@@ -1,31 +1,18 @@
-package cn.itcast.microservice.item.domain;
+package cn.itcast.microservice.feign.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import cn.itcast.microservice.pojo.BasePojo;
 
-@Entity
-@Table(name = "tb_item")
 public class Item extends BasePojo{
     private static final long serialVersionUID = 1L;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(unique=true,name="title",columnDefinition="varchar(50) not null")
     private String title;
     
-    @Column(name="desc",columnDefinition="varchar(50)")
     private String desc;
     
-    @Column(name="others",columnDefinition="varchar(50)")
     private String others;
     
-    @Column(name="price",columnDefinition="varchar(50)")
     private String price;
     
     public Long getId()
@@ -68,5 +55,14 @@ public class Item extends BasePojo{
     {
         this.price = price;
     }
+    public Item(String title, String desc, String others, String price)
+    {
+        super();
+        this.title = title;
+        this.desc = desc;
+        this.others = others;
+        this.price = price;
+    }
+    
     
 }

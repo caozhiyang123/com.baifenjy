@@ -5,5 +5,4 @@
 <!-- namespace(命名空间)：映射文件的唯一标识 -->
 <mapper namespace="cn.itcast.microservice.mapper.OrderMapper">
 	
-	
 </mapper>

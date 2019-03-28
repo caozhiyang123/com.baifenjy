@@ -1,4 +1,4 @@
-package cn.itcast.microservice.pojo;
+package cn.itcast.microservice.item.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -36,8 +36,4 @@ public abstract class BasePojo implements Serializable{
     {
         this.updated = updated;
     }
-    
-    
-    
-
 }
