@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 
-@Controller
+//@Controller
 @RequestMapping("order")
+@RestController
 public class OrderController {
     @Autowired
     private OrderService orderService;
@@ -31,7 +33,7 @@ public class OrderController {
     
     // http://127.0.0.1:6870/order/pageQuery?page=1&rows=30&sort=updated&order=DESC&callback_=order
     
-    @ResponseBody
+//    @ResponseBody
     @RequestMapping(value="/pageQuery",method=RequestMethod.GET)
     public ResponseEntity<EasyUIResult> pageQuerySorted(@RequestParam("page")Integer pageNum,@RequestParam("rows")Integer pageSize
             ,@RequestParam(value="sort",required=false,defaultValue="updated")String sort,
