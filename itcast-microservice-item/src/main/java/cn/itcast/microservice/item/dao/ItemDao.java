@@ -1,7 +1,7 @@
 package cn.itcast.microservice.item.dao;
 
 
-import cn.itcast.microservice.item.domain.Item;
+import cn.itcast.microservice.item.pojo.Item;
 
 public class ItemDao
 {

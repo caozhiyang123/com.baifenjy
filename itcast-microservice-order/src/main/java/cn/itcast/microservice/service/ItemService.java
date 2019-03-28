@@ -9,19 +9,22 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import cn.itcast.microservice.feign.ItemOfEduClient;
 import cn.itcast.microservice.feign.pojo.Item;
+import cn.itcast.microservice.vo.Reply;
 
 @Service
 public class ItemService
 {
-    @Autowired
+    @Autowired 
     private ItemOfEduClient itemOfEduClient;
     
     @HystrixCommand(fallbackMethod = "checkMethod")
     public Item queryItemById(long id) throws Exception {
-        return  new ObjectMapper().readValue(itemOfEduClient.queryItemById(id),Item.class);
+        Item item = new ObjectMapper().readValue(itemOfEduClient.queryItemById(id),Item.class);
+        System.out.println(item == null?"null":item.toString());
+        return item;
     }
     
-    public Item checkMethod(Long id){
-        return new Item(null,"error",null,null);
+    public Item checkMethod(long id){
+        return new Item(null,Reply.NO_ITEM,null,null);
     }
 }

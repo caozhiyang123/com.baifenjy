@@ -1,4 +1,4 @@
-package cn.itcast.microservice.item.domain;
+package cn.itcast.microservice.item.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +19,8 @@ public class Item extends BasePojo{
     @Column(unique=true,name="title",columnDefinition="varchar(50) not null")
     private String title;
     
-    @Column(name="desc",columnDefinition="varchar(50)")
-    private String desc;
+    @Column(name="item_desc",columnDefinition="varchar(50)")
+    private String item_desc;
     
     @Column(name="others",columnDefinition="varchar(50)")
     private String others;
@@ -46,11 +46,11 @@ public class Item extends BasePojo{
     }
     public String getDesc()
     {
-        return desc;
+        return item_desc;
     }
     public void setDesc(String desc)
     {
-        this.desc = desc;
+        this.item_desc = desc;
     }
     public String getOthers()
     {

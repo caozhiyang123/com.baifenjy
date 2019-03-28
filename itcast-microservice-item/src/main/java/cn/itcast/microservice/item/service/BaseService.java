@@ -14,8 +14,8 @@ import com.github.abel533.mapper.Mapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import cn.itcast.microservice.item.domain.BasePojo;
-import cn.itcast.microservice.item.domain.Item;
+import cn.itcast.microservice.item.pojo.BasePojo;
+import cn.itcast.microservice.item.pojo.Item;
 import cn.itcast.microservice.item.util.ThreadLocalSimple;
 
 

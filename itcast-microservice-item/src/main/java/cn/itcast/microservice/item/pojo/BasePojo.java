@@ -1,4 +1,4 @@
-package cn.itcast.microservice.item.domain;
+package cn.itcast.microservice.item.pojo;
 
 import java.io.Serializable;
 import java.util.Date;

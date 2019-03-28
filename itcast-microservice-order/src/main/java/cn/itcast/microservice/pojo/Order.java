@@ -19,6 +19,9 @@ public class Order extends BasePojo{
     @Column(unique=true,name="title",columnDefinition="varchar(50) not null")
     private String title;
     
+    @Column(name="item_id",columnDefinition="bigint(20) default 0")
+    private Long itemId;
+
     @Column(name="order_item",columnDefinition="varchar(50)")
     private String orderItem;
     
@@ -39,6 +42,7 @@ public class Order extends BasePojo{
 
     @Column(name="updated",columnDefinition="varchar(50) not null")
     private String updated;
+    
     
     public Long getId()
     {
@@ -117,6 +121,14 @@ public class Order extends BasePojo{
     {
         super.setUpdated(updated);
         this.updated = updated;
+    }
+    public Long getItemId()
+    {
+        return itemId;
+    }
+    public void setItemId(Long itemId)
+    {
+        this.itemId = itemId;
     }
     
 }

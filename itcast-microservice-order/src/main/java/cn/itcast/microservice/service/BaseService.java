@@ -48,8 +48,9 @@ public abstract class BaseService<T extends BasePojo>
      * @param rows
      * @param order 
      * @return
+     * @throws Exception 
      */
-    public PageInfo<T> queryPageSorted(T record,Integer page,Integer rows,String sort, String order){
+    public PageInfo<T> queryPageSorted(T record,Integer page,Integer rows,String sort, String order) throws Exception{
         PageHelper pageHelper = new PageHelper();
         pageHelper.startPage(page, rows);
         Example example = new Example(clazz);

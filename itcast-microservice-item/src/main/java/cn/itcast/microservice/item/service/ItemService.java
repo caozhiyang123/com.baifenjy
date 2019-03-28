@@ -1,7 +1,8 @@
 package cn.itcast.microservice.item.service;
 
-import cn.itcast.microservice.item.domain.Item;
 import org.springframework.stereotype.Service;
+
+import cn.itcast.microservice.item.pojo.Item;
 
 
 @Service

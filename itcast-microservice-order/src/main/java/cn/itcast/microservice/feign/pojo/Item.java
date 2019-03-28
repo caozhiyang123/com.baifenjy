@@ -63,6 +63,10 @@ public class Item extends BasePojo{
         this.others = others;
         this.price = price;
     }
-    
-    
+    @Override
+    public String toString()
+    {
+        return "Item [id=" + id + ", title=" + title + ", desc=" + desc + ", others=" + others + ", price=" + price
+                + "]";
+    }
 }
