@@ -45,7 +45,7 @@
     </dependencies>
 
     <build>
-        <finalName>itcast-microservice-sso</finalName>
+        <finalName>itcast-microservice-config</finalName>
         <plugins>
             <!-- 资源文件拷贝插件 -->
             <plugin>
