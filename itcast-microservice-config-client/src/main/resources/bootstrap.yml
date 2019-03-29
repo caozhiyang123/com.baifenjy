@@ -3,7 +3,7 @@ spring:
     config:
       name: application  # 配置服务中的应用名称
 #      uri: http://localhost:7000   # SpringCloud Config地址
-      profile: dev # profile
+      profile: dev #dev 开发环境配置文件 |  test 测试环境  |  pro 正式环境 和git里的文件后缀名对应
       label: master # 分支
       discovery:
         enabled: true  # 启用发现服务功能
