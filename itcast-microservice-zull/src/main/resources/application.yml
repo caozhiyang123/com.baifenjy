@@ -7,17 +7,16 @@ spring:
 # = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
 zuul:
   routes:
-    itcast-microservice-order: #订单系统
-      path: /order-service/**
-    serviceId: itcast-microservice-order
+    cn-itcast-microservice-sso: #单独登陆系统
+      path: /sso/**
+      serviceId: itcast-microservice-sso
+#    itcast-microservice-order: #订单系统
+#      path: /order-service/**
+#    serviceId: itcast-microservice-order
 #    itcast-microservice-item:
 #      path: /item-service/**
 #      url: http://127.0.0.1:8185
 #    serviceId: itcast-microservice-item
-    #item-service: #item-service商品管理
-    #  path: /item-service/** #配置请求URL的请求规则
-  #   url: http://127.0.0.1:8081 #真正的微服务地址
-    #  serviceId: itcast-microservice-item
 
 
 ###########################################################################################
