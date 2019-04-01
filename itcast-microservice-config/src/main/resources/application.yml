@@ -47,3 +47,7 @@ logging:
 # org.springframework.web:DEBUG
   file: /log/log/order.log
 
+# 关闭actuator安全认证
+management:
+  security:
+    enabled: false

@@ -1,0 +1,11 @@
+server:
+  port: ${port} #服务端口
+
+spring:
+  application:
+    name: itcast-microservice-config-client
+
+# 关闭actuator安全认证
+management:
+  security:
+    enabled: false
