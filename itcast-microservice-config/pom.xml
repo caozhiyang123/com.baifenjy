@@ -83,5 +83,4 @@
         </plugins>
         <defaultGoal>compile</defaultGoal>
     </build>
-
 </project>
