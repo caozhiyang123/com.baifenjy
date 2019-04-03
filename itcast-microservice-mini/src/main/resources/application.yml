@@ -1,0 +1,33 @@
+server:
+  port: ${port} #服务端口
+
+spring:
+  application:
+    name: itcast-microservice-config
+  cloud.task.closecontext_enable: false
+
+# = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
+  #数据库配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/baifenjy?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: MyNewPass
+    maxActive: 20
+    maxWait: 60000
+    maxIdle: 8
+    minIdle: 8
+    initialSize: 10
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    
+logging.level.org.springframework.cloud.task: DEBUG
