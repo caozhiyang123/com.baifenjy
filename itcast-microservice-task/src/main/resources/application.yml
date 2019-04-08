@@ -4,7 +4,10 @@ server:
 spring:
   application:
     name: itcast-microservice-config
-  cloud.task.closecontext_enable: false
+  cloud.task:
+    closecontext_enable: false #If the application requires the ApplicationContext to be closed at the completion of a task
+    initialize.enable: false #do not wish for Spring Cloud Task to create them at task startup
+    single-instance-enabled: true # establish that only one task with a given task name can be run at a time
 # = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
   #数据库配置
   datasource:
@@ -28,7 +31,7 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     filters: stat,wall,log4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-###########################################################################################
+# = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
 eureka:
   client:
     registerWithEureka: true #是否将自己注册到eureka服务中，本身就是所有无需注册
