@@ -1,0 +1,68 @@
+server:
+  port: ${port} #服务端口
+
+spring:
+  application:
+    name: itcast-microservice-config
+  cloud.task:
+    closecontext_enable: false #If the application requires the ApplicationContext to be closed at the completion of a task
+    initialize.enable: false #do not wish for Spring Cloud Task to create them at task startup
+#    single-instance-enabled: true # establish that only one task with a given task name can be run at a time
+  batch.job.enabled: false
+  initializer.enabled: true
+# = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
+  #数据库配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/baifenjy?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: MyNewPass
+    maxActive: 20
+    maxWait: 60000
+    maxIdle: 8
+    minIdle: 8
+    initialSize: 10
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    
+  jpa:
+    hibernate:
+#      ddl-auto: create #ddl-auto:设为create表示每次都重写建表
+      ddl-auto: update # ddl-auto:设为update表示每次都不会重写建表
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    show-sql: true
+    database: MYSQL
+    databasePlatform: org.hibernate.dialect.MySQL5InnoDBDialect
+# = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
+eureka:
+  client:
+    registerWithEureka: true #是否将自己注册到eureka服务中，本身就是所有无需注册
+    fetchRegistry: true #是否从eureka服务中获取信息
+    serviceUrl: #Eureka客户端与Eureka服务端交互地址
+      defaultZone: http://oriki:1234@127.0.0.1:6868/eureka/,http://oriki:1234@127.0.0.1:6869/eureka/
+  instance:
+    prefer-ip-address: true #将自己的ip注册到Eureka服务中
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port} #指定实例Id
+# = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
+logging:
+  path: logs
+  file: ${logging.path}/batch.log
+  level:
+    com.easystudio: INFO
+    root: INFO
+    org:
+      hibernate.SQL: INFO
+      springframework.cloud.task: DEBUG
+log4j.logger.org.springframework.jdbc: DEBUG
+log4j.logger.org.springframework.batch: DEBUG
+  

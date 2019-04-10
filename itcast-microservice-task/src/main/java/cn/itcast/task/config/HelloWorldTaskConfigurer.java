@@ -5,7 +5,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.task.configuration.DefaultTaskConfigurer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 
 public class HelloWorldTaskConfigurer extends DefaultTaskConfigurer{
