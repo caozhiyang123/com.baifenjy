@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: itcast-microservice-config
+    name: itcast-microservice-job
   cloud.task:
     closecontext_enable: false #If the application requires the ApplicationContext to be closed at the completion of a task
     initialize.enable: false #do not wish for Spring Cloud Task to create them at task startup
