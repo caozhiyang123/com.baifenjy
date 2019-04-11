@@ -8,8 +8,14 @@ spring:
     closecontext_enable: false #If the application requires the ApplicationContext to be closed at the completion of a task
     initialize.enable: false #do not wish for Spring Cloud Task to create them at task startup
 #    single-instance-enabled: true # establish that only one task with a given task name can be run at a time
-  batch.job.enabled: false
-  initializer.enabled: true
+  batch: 
+    job: 
+      enabled: false #是否自动执行定义的Job，默认是
+      names: messageMigrationJob #启动时要执行的Job，默认执行全部Job
+    initializer.enabled: true #是否初始化Spring Batch的数据库，默认为是
+#    table-prefix: #设置SpringBatch的数据库表的前缀
+#    schema:
+    
 # = = = = = = = = = = = = = = = == = = = = = = = = = == = = = = = = = = = = = = = =
   #数据库配置
   datasource:
