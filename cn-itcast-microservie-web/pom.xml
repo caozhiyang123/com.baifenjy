@@ -44,6 +44,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions> 
+			     <exclusion> 
+			       <groupId>org.springframework.boot</groupId> 
+			       <artifactId>spring-boot-starter-tomcat</artifactId>
+			    </exclusion> 
+			</exclusions>
         </dependency>
          <!--Feign-->
         <dependency>
@@ -113,6 +119,60 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+            <!-- 打包插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>cn.itcast.web.WebApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-antrun-plugin</artifactId>  
+                <executions>
+                    <execution>  
+                        <id>main-class-placement</id>  
+                        <phase>prepare-package</phase>  
+                        <configuration>  
+                            <target>
+                                <move todir="${project.build.directory}/${project.artifactId}/">  
+                                    <fileset dir="${project.build.directory}/classes/">  
+                                        <include name="WebApplication.class" />  
+                                    </fileset>  
+                                </move>  
+                            </target>  
+                        </configuration>  
+                        <goals>  
+                            <goal>run</goal>  
+                        </goals>  
+                    </execution>  
+                </executions>  
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- 配置Tomcat插件 -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
@@ -125,6 +185,26 @@
             </plugin>
         </plugins>
         <defaultGoal>compile</defaultGoal>
+        <resources>
+		    <!-- 编译之后包含xml -->
+		    <resource>
+		      <directory>src/main/java</directory>
+		      <includes>
+		        <include>**/*.xml</include>
+		      </includes>
+		      <filtering>true</filtering>
+		      <targetPath>${project.build.directory}</targetPath>  
+		    </resource>
+		    <!-- 编译之后包含xml和properties -->
+		    <resource>
+		      <directory>src/main/resources</directory>
+		      <includes>
+		        <include>**/*</include>
+		      </includes>
+		      <filtering>true</filtering>
+		      <targetPath>${project.build.directory}</targetPath> 
+		    </resource>
+		  </resources>
     </build>
     <packaging>war</packaging>
 </project>
