@@ -83,31 +83,34 @@ public class DruidConfig {
     @ConditionalOnMissingBean(name="dataSource")
     @Primary
     public DataSource dataSource() {
-        DruidDataSource datasource = new DruidDataSource();
-        System.out.println("---------druid datasource----");
-        datasource.setUrl(this.dbUrl);
-        datasource.setUsername(username);
-        datasource.setPassword(password);
-        datasource.setDriverClassName(driverClassName);
-
-        datasource.setInitialSize(initialSize);
-        datasource.setMinIdle(minIdle);
-        datasource.setMaxActive(maxActive);
-        datasource.setMaxWait(maxWait);
-        datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
-        datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
-        datasource.setValidationQuery(validationQuery);
-        datasource.setTestWhileIdle(testWhileIdle);
-        datasource.setTestOnBorrow(testOnBorrow);
-        datasource.setTestOnReturn(testOnReturn);
-        datasource.setPoolPreparedStatements(poolPreparedStatements);
-        datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
+        DruidDataSource datasource = null;
         try {
+            datasource = new DruidDataSource();
+            System.out.println("---------druid datasource----");
+            datasource.setUrl(this.dbUrl);
+            datasource.setUsername(username);
+            datasource.setPassword(password);
+            datasource.setDriverClassName(driverClassName);
+    
+            datasource.setInitialSize(initialSize);
+            datasource.setMinIdle(minIdle);
+            datasource.setMaxActive(maxActive);
+            datasource.setMaxWait(maxWait);
+            datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
+            datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
+            datasource.setValidationQuery(validationQuery);
+            datasource.setTestWhileIdle(testWhileIdle);
+            datasource.setTestOnBorrow(testOnBorrow);
+            datasource.setTestOnReturn(testOnReturn);
+            datasource.setPoolPreparedStatements(poolPreparedStatements);
+            datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
             datasource.setFilters(filters);
+            datasource.setConnectionProperties(connectionProperties);
+            return datasource;
         } catch (SQLException e) {
+             logger.error(e.toString());
+             e.printStackTrace();
         }
-        datasource.setConnectionProperties(connectionProperties);
-
         return datasource;
     }
 
